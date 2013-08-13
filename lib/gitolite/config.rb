@@ -67,6 +67,8 @@ module Gitolite
 
       new_conf = File.join(path, filename)
       File.open(new_conf, "w") do |f|
+        f.sync = true
+
         #Output groups
         dep_order = build_groups_depgraph
         dep_order.each {|group| f.write group.to_s }

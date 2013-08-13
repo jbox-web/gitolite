@@ -61,6 +61,7 @@ module Gitolite
     def to_file(path)
       key_file = File.join(path, self.filename)
       File.open(key_file, "w") do |f|
+        f.sync = true
         f.write(self.to_s)
       end
       key_file
