@@ -11,7 +11,7 @@ module Gitolite
         #Store the perm hash in a lambda since we have to create a new one on every deny rule
         #The perm hash is stored as a 2D hash, with individual permissions being the first
         #degree and individual refexes being the second degree.  Both Hashes must respect order
-        @perm_hash_lambda = lambda { OrderedHash.new {|k,v| k[v] = OrderedHash.new{|k2, v2| k2[v2] = [] }} }
+        @perm_hash_lambda = lambda { Hash.new {|k,v| k[v] = Hash.new{|k2, v2| k2[v2] = [] }} }
         @permissions = Array.new.push(@perm_hash_lambda.call)
 
         @name = name

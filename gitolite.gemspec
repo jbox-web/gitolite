@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 10.0.2"
 
   s.add_dependency "gitlab-grit", "~> 2.6.0"
-  s.add_dependency "hashery", "~> 1.5.0"
   s.add_dependency "gratr19", "~> 0.4.4.1"
 
   s.files         = `git ls-files`.split("\n")
