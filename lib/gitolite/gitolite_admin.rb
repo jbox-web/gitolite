@@ -62,7 +62,7 @@ module Gitolite
 
     #Writes all changed aspects out to the file system
     #will also stage all changes
-    def save
+    def save(commit_message)
       Dir.chdir(@gl_admin.working_dir) do
         #Process config file (if loaded, i.e. may be modified)
         if @config
@@ -87,6 +87,8 @@ module Gitolite
           end
         end
       end
+
+      @gl_admin.commit_index(commit_message)
     end
 
     # This method will destroy all local tracked changes, resetting the local gitolite
@@ -107,20 +109,15 @@ module Gitolite
       @config = load_config
     end
 
-    #commits all staged changes and pushes back
-    #to origin
-    #
-    #TODO: generate a better commit message
-    #TODO: add the ability to specify the remote and branch
-    #TODO: detect existance of origin instead of just dying
-    def apply(commit_message = DEFAULT_COMMIT_MSG)
-      @gl_admin.commit_index(commit_message)
-      @gl_admin.git.push({}, "origin", "master")
+    # Push back to origin
+    def apply
+      @gl_admin.git.native(:push, {:chdir => @gl_admin.working_dir}, "origin", "master")
     end
 
+    # Commits all staged changes and pushes back to origin
     def save_and_apply(commit_message = DEFAULT_COMMIT_MSG)
-      self.save
-      self.apply(commit_message)
+      self.save(commit_message)
+      self.apply
     end
 
     # Updates the repo with changes from remote master
