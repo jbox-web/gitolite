@@ -169,6 +169,10 @@ module Gitolite
       @config ||= load_config
     end
 
+    def config=(config)
+      @config = config
+    end
+
     private
       #Loads all .pub files in the gitolite-admin
       #keydir directory
