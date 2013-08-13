@@ -63,27 +63,31 @@ module Gitolite
     #Writes all changed aspects out to the file system
     #will also stage all changes
     def save(commit_message)
-      Dir.chdir(@gl_admin.working_dir) do
-        #Process config file (if loaded, i.e. may be modified)
-        if @config
-          new_conf = @config.to_file(@confdir)
-          @gl_admin.add(new_conf)
+      confdir = File.join(@gl_admin.working_dir, @confdir)
+      keydir  = File.join(@gl_admin.working_dir, @keydir)
+
+      #Process config file (if loaded, i.e. may be modified)
+      if @config
+        new_conf = @config.to_file(confdir).gsub(@gl_admin.working_dir + '/', '')
+        @gl_admin.git.native(:add, {:chdir => @gl_admin.working_dir}, new_conf)
+      end
+
+      #Process ssh keys (if loaded, i.e. may be modified)
+      if @ssh_keys
+        files = list_keys(keydir).map{|f| File.basename f}
+        keys = @ssh_keys.values.map{|f| f.map {|t| t.filename}}.flatten
+
+        to_remove = (files - keys).map { |f| File.join(@keydir, f) }
+        to_remove.each do |key|
+          @gl_admin.git.native(:rm, {:chdir => @gl_admin.working_dir}, key)
         end
 
-        #Process ssh keys (if loaded, i.e. may be modified)
-        if @ssh_keys
-          files = list_keys(@keydir).map{|f| File.basename f}
-          keys = @ssh_keys.values.map{|f| f.map {|t| t.filename}}.flatten
-
-          to_remove = (files - keys).map { |f| File.join(@keydir, f)}
-          @gl_admin.remove(to_remove)
-
-          @ssh_keys.each_value do |key|
-            #Write only keys from sets that has been modified
-            next if key.respond_to?(:dirty?) && !key.dirty?
-            key.each do |k|
-              @gl_admin.add(k.to_file(@keydir))
-            end
+        @ssh_keys.each_value do |key|
+          #Write only keys from sets that has been modified
+          next if key.respond_to?(:dirty?) && !key.dirty?
+          key.each do |k|
+            new_key = k.to_file(keydir).gsub(@gl_admin.working_dir + '/', '')
+            @gl_admin.git.native(:add, {:chdir => @gl_admin.working_dir}, new_key)
           end
         end
       end
@@ -181,7 +185,7 @@ module Gitolite
         keys = Hash.new {|k,v| k[v] = DirtyProxy.new([])}
 
         list_keys(path).each do |key|
-          new_key = SSHKey.from_file(File.join(path, key))
+          new_key = SSHKey.from_file(key)
           owner = new_key.owner
 
           keys[owner] << new_key
@@ -198,10 +202,8 @@ module Gitolite
       end
 
       def list_keys(path)
-        Dir.chdir(path) do
-          keys = Dir.glob("**/*.pub")
-          keys
-        end
+        keys = Dir.glob(path + '/**/*.pub')
+        keys
       end
   end
 end
