@@ -62,7 +62,7 @@ module Gitolite
 
     #Writes all changed aspects out to the file system
     #will also stage all changes
-    def save(commit_message)
+    def save(commit_message = DEFAULT_COMMIT_MSG)
       confdir = File.join(@gl_admin.working_dir, @confdir)
       keydir  = File.join(@gl_admin.working_dir, @keydir)
 
