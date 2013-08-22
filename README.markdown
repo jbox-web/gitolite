@@ -10,13 +10,13 @@ This gem can still have problems.  Please file an issue if you encounter a bug. 
 * Allows for the bootstrapping of a gitolite-admin repository
 
 ## Requirements ##
-* Ruby 1.8.x or 1.9.x
+* Ruby 1.9.x or 2.0.x
 * a working [gitolite](https://github.com/sitaramc/gitolite) installation
 * the <tt>gitolite-admin</tt> repository checked out locally
 
 ## Installation ##
 
-    gem install gitolite
+    gem install jbox-gitolite
 
 ## Usage ##
 
@@ -108,17 +108,21 @@ This method can only be called on an existing gitolite-admin repo.  If you need 
 
 ### Save changes ###
 
-    ga_repo.save
+    ga_repo.save(commit_message)
 
-When this method is called, all changes get written to the file system and staged in git.  For the time being, gitolite assumes full control of the gitolite-admin repository.  This means that any keys in the keydir that are not being tracked will be removed and any human changes to gitolite.conf will be erased.
+When this method is called, all changes get written to the file system and commited in git.  For the time being, gitolite assumes full control of the gitolite-admin repository.  This means that any keys in the keydir that are not being tracked will be removed and any human changes to gitolite.conf will be erased.
+The commit message is optional. A generic message is set if missing.
 
 ### Apply changes ###
     ga_repo.apply
 
-This method will commit all changes with a generic message (will be improved upon later) and push to <tt>origin master</tt>.
+This method will push all changes to <tt>origin master</tt>.
 
 ### Save and apply ###
-    ga_repo.save_and_apply
+    ga_repo.save_and_apply(commit_message)
+
+This method will add files, commit and push all changes to <tt>origin master</tt> in the same transaction.
+The commit message is optional. A generic message is set if missing.
 
 ### Updating remote changes ###
     #In order to avoid conflicts, this will perform a reset! by default
@@ -170,7 +174,9 @@ The gitolite gem, on the other hand, will <em>always</em> output groups so that 
     @groupb = jim @groupa
 
 ## Issues ##
-* Gem is not thread safe.  For now, the gem will change directories in order to perform git operations.  It will, however, return to the old working directory once it is finished.  I am looking into making the gem thread safe.  Note that this is only an issue on Rubies that do not have a GIL (ex jRuby or Rubinius)
+* Gem is not fully thread safe.  For some method, the gem will change directories in order to perform git operations (only for <tt>reset, update and bootstrap method</tt>).
+The <tt>save, apply and save_and_apply</tt> methods are thread safe.
+Note that this is only an issue on Rubies that do not have a GIL (ex jRuby or Rubinius)
 
 # Contributing #
 * Tests!  If you ask me to pull changes that are not adequately tested,  I'm not going to do it.
@@ -184,7 +190,7 @@ The gitolite gem, on the other hand, will <em>always</em> output groups so that 
 * Rdoc is coming eventually
 
 ## Future ##
+* Make the gem thread safe (finish the job)
 * support folders in the keydir
 * support include tags
 * cleanup methods to make adding and removing easier (like add_key should accept an array of keys)
-* Make the gem thread safe
