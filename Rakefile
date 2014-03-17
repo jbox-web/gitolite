@@ -18,7 +18,7 @@ end
 
 # Standard tasks
 RSpec::Core::RakeTask.new(:spec)
-task :test => [:spec, ci:setup:rspec]
+task :test => :spec
 task :default => :spec
 
 require 'rdoc/task'
