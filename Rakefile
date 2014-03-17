@@ -2,6 +2,8 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 
+require 'ci/reporter/rake/rspec'
+
 # Rake tasks from https://github.com/mojombo/rakegem/blob/master/Rakefile
 
 # Helper Functions
@@ -13,6 +15,8 @@ def version
   line = File.read("lib/#{name}/version.rb")[/^\s*VERSION\s*=\s*.*/]
   line.match(/.*VERSION\s*=\s*['"](.*)['"]/)[1]
 end
+
+rake ci:setup:rspec spec
 
 # Standard tasks
 RSpec::Core::RakeTask.new(:spec)

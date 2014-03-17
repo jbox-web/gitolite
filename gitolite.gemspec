@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rdoc", "~> 3.12"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-rcov"
+  s.add_development_dependency "ci_reporter"
   s.add_development_dependency "rake", "~> 10.0.2"
 
   s.add_dependency "gitlab-grit", "~> 2.6.0"
