@@ -16,11 +16,9 @@ def version
   line.match(/.*VERSION\s*=\s*['"](.*)['"]/)[1]
 end
 
-rake ci:setup:rspec spec
-
 # Standard tasks
 RSpec::Core::RakeTask.new(:spec)
-task :test => :spec
+task :test => [:spec, ci:setup:rspec]
 task :default => :spec
 
 require 'rdoc/task'
