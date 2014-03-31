@@ -94,7 +94,7 @@ module Gitolite
         end
       end
 
-      @gl_admin.commit_index(commit_message)
+      @gl_admin.git.native(:commit, {:chdir => @gl_admin.working_dir}, '-a', '-m', commit_message)
     end
 
     # This method will destroy all local tracked changes, resetting the local gitolite
@@ -128,13 +128,11 @@ module Gitolite
 
     # Updates the repo with changes from remote master
     def update(options = {})
-      options = {:reset => true, :rebase => false }.merge(options)
+      options = {:reset => true, :rebase => false}.merge(options)
 
       reset! if options[:reset]
 
-      Dir.chdir(@gl_admin.working_dir) do
-        @gl_admin.git.pull({:rebase => options[:rebase]}, "origin", "master")
-      end
+      @gl_admin.git.native(:pull, {:chdir => @gl_admin.working_dir, :rebase => options[:rebase]}, "origin", "master")
 
       reload!
     end
