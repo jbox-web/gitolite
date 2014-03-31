@@ -7,6 +7,7 @@ module Gitolite
     CONF = "gitolite.conf"
     CONFDIR = "conf"
     KEYDIR = "keydir"
+    DEBUG = false
 
     #Gitolite gem's default git commit message
     DEFAULT_COMMIT_MSG = "Committed by the gitolite gem"
@@ -20,6 +21,7 @@ module Gitolite
       @conf = options[:conf] || CONF
       @confdir = options[:confdir] || CONFDIR
       @keydir = options[:keydir] || KEYDIR
+      Grit.debug = options[:debug] || DEBUG
     end
 
     # This method will bootstrap a gitolite-admin repo
