@@ -25,6 +25,12 @@ This gem can still have problems.  Please file an issue if you encounter a bug. 
     require 'gitolite'
     ga_repo = Gitolite::GitoliteAdmin.new("/path/to/gitolite/admin/repo")
 
+    # or with options :
+    ga_repo = Gitolite::GitoliteAdmin.new("/path/to/gitolite/admin/repo", :config_file => 'example.conf',
+                                                                          :debug       => true,
+                                                                          :timeout     => 20,
+                                                                          :env         => {'GIT_SSH' => /path/to/script/file})
+
 This method can only be called on an existing gitolite-admin repo.  If you need to create a new gitolite-admin repo, see "Bootstrapping".
 
 ### Configuration Files ###
@@ -108,10 +114,11 @@ This method can only be called on an existing gitolite-admin repo.  If you need 
 
 ### Save changes ###
 
-    ga_repo.save(commit_message)
+    ga_repo.save(commit_message, :author => 'John Doe <john.doe@example.com>')
 
 When this method is called, all changes get written to the file system and commited in git.  For the time being, gitolite assumes full control of the gitolite-admin repository.  This means that any keys in the keydir that are not being tracked will be removed and any human changes to gitolite.conf will be erased.
 The commit message is optional. A generic message is set if missing.
+Optionally you can pass the author as above.
 
 ### Apply changes ###
     ga_repo.apply
@@ -153,6 +160,10 @@ You can also pass a message to be used for the initial bootstrap commit:
 
 Please note that while bootstrapping is supported, I highly recommend that the initial gitolite-admin repo be created by gitolite itself.
 
+## Thread Safety ##
+Now the gem should be thread safe as all ```chdir``` has been removed.
+There's no global variables and only well used constants.
+
 ## Caveats ##
 ### Windows compatibility ###
 The grit gem (which is used for under-the-hood git operations) does not currently support Windows.  Until it does, gitolite will be unable to support Windows.
@@ -173,11 +184,6 @@ The gitolite gem, on the other hand, will <em>always</em> output groups so that 
     @groupa = bob joe sue sam
     @groupb = jim @groupa
 
-## Issues ##
-* Gem is not fully thread safe.  For some method, the gem will change directories in order to perform git operations (only for <tt>reset, update and bootstrap method</tt>).
-The <tt>save, apply and save_and_apply</tt> methods are thread safe.
-Note that this is only an issue on Rubies that do not have a GIL (ex jRuby or Rubinius)
-
 # Contributing #
 * Tests!  If you ask me to pull changes that are not adequately tested,  I'm not going to do it.
 * If you introduce new features/public methods on objects, you must update the README.
@@ -185,12 +191,12 @@ Note that this is only an issue on Rubies that do not have a GIL (ex jRuby or Ru
 ### Contributors ###
 * Alexander Simonov - [simonoff](https://github.com/simonoff)
 * Pierre Guinoiseau - [peikk0](https://github.com/peikk0)
+* Nicolas Rodriguez - [n-rodriguez](https://github.com/n-rodriguez)
 
 ## Documentation ##
 * Rdoc is coming eventually
 
 ## Future ##
-* Make the gem thread safe (finish the job)
 * support folders in the keydir
 * support include tags
 * cleanup methods to make adding and removing easier (like add_key should accept an array of keys)
