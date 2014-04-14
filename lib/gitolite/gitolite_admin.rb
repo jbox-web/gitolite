@@ -143,7 +143,7 @@ module Gitolite
 
     # Writes all changed aspects out to the file system
     # will also stage all changes then commit
-    def save(commit_message = DEFAULT_COMMIT_MSG)
+    def save(commit_message = DEFAULT_COMMIT_MSG, options = {})
 
       #Process config file (if loaded, i.e. may be modified)
       if @config
@@ -171,7 +171,13 @@ module Gitolite
         end
       end
 
-      @gl_admin.git.native(:commit, {:env => @env, :chdir => @gl_admin.working_dir}, '-a', '-m', commit_message)
+      args = []
+
+      if options.has_key?(:author) && !options[:author].empty?
+        args << "--author='#{options[:author]}'"
+      end
+
+      @gl_admin.git.native(:commit, {:env => @env, :chdir => @gl_admin.working_dir}, '-a', '-m', commit_message, args.join(' '))
     end
 
 
