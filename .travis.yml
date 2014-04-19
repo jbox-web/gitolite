@@ -7,4 +7,6 @@ jdk:
  - openjdk6
 gemfile:
  - Gemfile
- 
+branches:
+  only:
+    - devel 
