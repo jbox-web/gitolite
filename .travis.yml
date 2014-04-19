@@ -47,6 +47,13 @@ matrix:
     - rvm: 1.9.2
       jdk: oraclejdk7
 
+    - rvm: jruby-19mode
+      jdk: openjdk6
+    - rvm: jruby-19mode
+      jdk: openjdk7
+    - rvm: jruby-19mode
+      jdk: oraclejdk7
+
   include:
     - rvm: 2.1.0
       jdk:
