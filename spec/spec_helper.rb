@@ -6,7 +6,7 @@ require 'tmpdir'
 require 'simplecov'
 require 'simplecov-rcov'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails'
+SimpleCov.start
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
