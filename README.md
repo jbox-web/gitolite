@@ -1,4 +1,4 @@
-## ![logo](https://raw.github.com/jbox-web/redmine_git_hosting/gh-pages/images/git_logo.png) gitolite
+## ![logo](https://raw.github.com/jbox-web/gitolite/gh-pages/images/git_logo.png) gitolite
 
 ### A gem which makes configuring your own Git hosting easy ;)
 
@@ -10,7 +10,7 @@ It provides these functionalities :
 * [Repositories Management](https://github.com/jbox-web/gitolite/wiki/Features#wiki-repositories-management)
 * [Gitolite Admin Repository Bootstrapping](https://github.com/jbox-web/gitolite/wiki/Features#wiki-gitolite-admin-repository-bootstrapping)
 
-You can follow announcements [here](https://github.com/jbox-web/redmine_git_hosting/wiki/Announcements) or take a look at the [roadmap](https://github.com/jbox-web/redmine_git_hosting/wiki/Roadmap).
+You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/Announcements) or take a look at the [roadmap](https://github.com/jbox-web/gitolite/wiki/Roadmap).
 
 ## Code status
 
