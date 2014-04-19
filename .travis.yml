@@ -10,3 +10,6 @@ gemfile:
 branches:
   only:
     - devel 
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq libicu-dev
