@@ -17,8 +17,8 @@ end
 
 # Standard tasks
 RSpec::Core::RakeTask.new(:spec)
-task :test => :spec
 task :default => :spec
+task :test    => :spec
 
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
@@ -30,4 +30,9 @@ end
 desc "Open an irb session preloaded with this library"
 task :console do
   sh "irb -rubygems -r ./lib/#{name}.rb"
+end
+
+desc "Show library version"
+task :version do
+  puts "#{name} #{version}"
 end
