@@ -1,4 +1,5 @@
 module Gitolite
+
   # Very simple proxy object for checking if the proxied object was modified
   # since the last clean_up! method called. It works correctly only for objects
   # with proper hash method!
@@ -25,5 +26,7 @@ module Gitolite
     def clean_up!
       @clean_hash = @target.hash
     end
+
   end
+
 end

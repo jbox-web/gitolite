@@ -1,27 +1,31 @@
 module Gitolite
   class Config
-    #Represents a repo inside the gitolite configuration.  The name, permissions, and git config
-    #options are all encapsulated in this class
+
+    # Represents a repo inside the gitolite configuration.  The name, permissions, and git config
+    # options are all encapsulated in this class
     class Repo
+
       ALLOWED_PERMISSIONS = /-|C|R|RW\+?(?:C?D?|D?C?)M?/
 
       attr_accessor :permissions, :name, :config, :options, :owner, :description
 
       def initialize(name)
-        #Store the perm hash in a lambda since we have to create a new one on every deny rule
-        #The perm hash is stored as a 2D hash, with individual permissions being the first
-        #degree and individual refexes being the second degree.  Both Hashes must respect order
+        # Store the perm hash in a lambda since we have to create a new one on every deny rule
+        # The perm hash is stored as a 2D hash, with individual permissions being the first
+        # degree and individual refexes being the second degree.  Both Hashes must respect order
         @perm_hash_lambda = lambda { Hash.new {|k,v| k[v] = Hash.new{|k2, v2| k2[v2] = [] }} }
         @permissions = Array.new.push(@perm_hash_lambda.call)
 
         @name = name
-        @config = {} #git config
-        @options = {} #gitolite config
+        @config = {} # git config
+        @options = {} # gitolite config
       end
+
 
       def clean_permissions
         @permissions = Array.new.push(@perm_hash_lambda.call)
       end
+
 
       def add_permission(perm, refex = "", *users)
         if perm =~ ALLOWED_PERMISSIONS
@@ -37,21 +41,26 @@ module Gitolite
         end
       end
 
+
       def set_git_config(key, value)
         @config[key] = value
       end
+
 
       def unset_git_config(key)
         @config.delete(key)
       end
 
+
       def set_gitolite_option(key, value)
         @options[key] = value
       end
 
+
       def unset_gitolite_option(key)
         @options.delete(key)
       end
+
 
       def to_s
         repo = "repo    #{@name}\n"
@@ -75,6 +84,7 @@ module Gitolite
         repo
       end
 
+
       def gitweb_description
         if @description.nil?
           nil
@@ -85,10 +95,13 @@ module Gitolite
         end
       end
 
-      #Gets raised if a permission that isn't in the allowed
-      #list is passed in
+
+      # Gets raised if a permission that isn't in the allowed
+      # list is passed in
       class InvalidPermissionError < ArgumentError
       end
+
     end
+
   end
 end
