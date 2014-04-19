@@ -51,11 +51,3 @@ The gitolite gem, on the other hand, will <em>always</em> output groups so that 
 * Alexander Simonov - [simonoff](https://github.com/simonoff)
 * Pierre Guinoiseau - [peikk0](https://github.com/peikk0)
 * Nicolas Rodriguez - [n-rodriguez](https://github.com/n-rodriguez)
-
-## Documentation ##
-* Rdoc is coming eventually
-
-## Future ##
-* support folders in the keydir
-* support include tags
-* cleanup methods to make adding and removing easier (like add_key should accept an array of keys)
