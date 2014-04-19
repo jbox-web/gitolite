@@ -1,2 +1,0 @@
---format RspecJunitFormatter
---out junit/rspec.xml

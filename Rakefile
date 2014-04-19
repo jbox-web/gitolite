@@ -1,10 +1,9 @@
 require 'bundler'
 Bundler::GemHelper.install_tasks
+
+require 'rake'
 require 'rspec/core/rake_task'
-
-require 'ci/reporter/rake/rspec'
-
-# Rake tasks from https://github.com/mojombo/rakegem/blob/master/Rakefile
+require 'rdoc/task'
 
 # Helper Functions
 def name
@@ -21,8 +20,7 @@ RSpec::Core::RakeTask.new(:spec)
 task :test => :spec
 task :default => :spec
 
-require 'rdoc/task'
-RDoc::Task.new do |rdoc|
+Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "#{name} #{version}"
   rdoc.rdoc_files.include('README*')

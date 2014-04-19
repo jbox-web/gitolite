@@ -15,13 +15,16 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "jbox-gitolite"
 
-  s.add_development_dependency "rspec",   "~> 2.9.0"
-  s.add_development_dependency "forgery", "~> 0.5.0"
-  s.add_development_dependency "rdoc",    "~> 3.12"
-  s.add_development_dependency "rake",    "~> 10.0.2"
-  s.add_development_dependency "simplecov"
-  s.add_development_dependency "simplecov-rcov"
-  s.add_development_dependency "ci_reporter"
+  s.add_development_dependency "rake",        "~> 10.3.1"
+  s.add_development_dependency "rdoc",        "~> 4.1.1"
+  s.add_development_dependency "rspec",       "~> 2.14.1"
+  s.add_development_dependency "guard-rspec", "~> 2.6.0"
+  s.add_development_dependency "guard-spork", "~> 1.5.1"
+  s.add_development_dependency "forgery",     "~> 0.5.0"
+
+  s.add_development_dependency "simplecov",      "~> 0.8.2"
+  s.add_development_dependency "simplecov-rcov", "~> 0.2.3"
+
   s.add_development_dependency "rspec_junit_formatter", "~> 0.1.6"
 
   s.add_dependency "gitlab-grit", "~> 2.6.5"
