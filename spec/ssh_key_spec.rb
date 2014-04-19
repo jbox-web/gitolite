@@ -175,7 +175,7 @@ describe Gitolite::SSHKey do
       s = SSHKey.from_file(key)
       s.location.should == 'desktop'
     end
-    
+
     it 'location should be "foo-bar" for bob@foo-bar.pub' do
       key = File.join(key_dir, 'bob@foo-bar.pub')
       s = SSHKey.from_file(key)
@@ -239,6 +239,21 @@ describe Gitolite::SSHKey do
       s.to_s.should == [type, blob, email].join(' ')
       s.owner.should == owner
       s.location.should == location
+    end
+  end
+
+  describe '#hash' do
+    it 'should have two hash equalling one another' do
+      type = "ssh-rsa"
+      blob = Forgery::Basic.text(:at_least => 372, :at_most => 372)
+      email = Forgery::Internet.email_address
+      owner = Forgery::Name.first_name
+      location = Forgery::Name.location
+
+      hash_test = [owner, location, type, blob, email].hash
+      s = SSHKey.new(type, blob, email, owner, location)
+
+      s.hash.should == hash_test
     end
   end
 
