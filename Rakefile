@@ -16,7 +16,10 @@ def version
 end
 
 # Standard tasks
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec) do |config|
+  config.rspec_opts = "--color --format nested --fail-fast"
+end
+
 task :default => :spec
 task :test    => :spec
 
