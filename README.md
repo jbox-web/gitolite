@@ -25,30 +25,7 @@ You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/An
 
     gem install jbox-gitolite
 
-
-## Thread Safety ##
-Now the gem should be thread safe as all ```chdir``` has been removed.
-There's no global variables and only well used constants.
-
-## Caveats ##
-### Windows compatibility ###
-The grit gem (which is used for under-the-hood git operations) does not currently support Windows.  Until it does, gitolite will be unable to support Windows.
-
-### Group Ordering ###
-When the gitolite backend parses the config file, it does so in one pass.  Because of this, groups that are modified after being used do not see those changes reflected in previous uses.
-
-For example:
-
-    @groupa = bob joe sue
-    @groupb = jim @groupa
-    @groupa = sam
-
-Group b will contain the users <tt>jim, bob, joe, and sue</tt>
-
-The gitolite gem, on the other hand, will <em>always</em> output groups so that all modifications are represented before it is ever used.  For the above example, group b will be output with the following users: <tt>jim, bob, joe, sue, and sam</tt>.  The groups in the config file will look like this:
-
-    @groupa = bob joe sue sam
-    @groupb = jim @groupa
+Read the documentation and more in the [Wiki](https://github.com/jbox-web/gitolite/wiki).
 
 ## Copyrights & License
 gitolite is completely free and open source and released under the [MIT License](https://github.com/jbox-web/gitolite/blob/devel/LICENSE.txt).
