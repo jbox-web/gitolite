@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake",        "~> 10.3.1"
   s.add_development_dependency "rdoc",        "~> 4.1.1"
   s.add_development_dependency "rspec",       "~> 2.14.1"
-  s.add_development_dependency "guard-rspec", "~> 2.6.0"
+  s.add_development_dependency "guard-rspec", "~> 4.2.8"
   s.add_development_dependency "guard-spork", "~> 1.5.1"
   s.add_development_dependency "forgery",     "~> 0.5.0"
   s.add_development_dependency "travis-lint", "~> 1.8.0"
