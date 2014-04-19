@@ -1,9 +1,7 @@
 require 'spec_helper'
-require 'gitolite/ssh_key'
-include Gitolite
 
 describe Gitolite::SSHKey do
-  key_dir = File.join(File.dirname(__FILE__),'keys')
+  key_dir = File.join(File.dirname(__FILE__), 'fixtures', 'keys')
 
   describe "#from_string" do
     it 'should construct an SSH key from a string' do

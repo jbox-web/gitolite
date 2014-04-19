@@ -1,4 +1,3 @@
-require 'gitolite/dirty_proxy'
 require 'spec_helper'
 
 describe Gitolite::DirtyProxy do
@@ -7,8 +6,10 @@ describe Gitolite::DirtyProxy do
     Gitolite::DirtyProxy.new([]).should_not be_nil
   end
 
+
   let(:target) { ['foo', 'bar'] }
   let(:proxy) { Gitolite::DirtyProxy.new(target) }
+
 
   describe 'delegating to the target object' do
     it 'should act as instance of the target' do
@@ -23,6 +24,7 @@ describe Gitolite::DirtyProxy do
       expect(proxy).to eql(target)
     end
   end
+
 
   describe 'dirty checking methods' do
     it 'should respond to clean_up!' do
@@ -60,4 +62,5 @@ describe Gitolite::DirtyProxy do
       include_examples 'dirty? clean_up!'
     end
   end
+
 end

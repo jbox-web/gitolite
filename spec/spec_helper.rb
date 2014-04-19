@@ -17,5 +17,6 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  require File.expand_path('../../lib/gitolite', __FILE__)
+  include Gitolite
 end

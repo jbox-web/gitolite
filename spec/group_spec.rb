@@ -1,4 +1,3 @@
-require 'gitolite/config/group'
 require 'spec_helper'
 
 describe Gitolite::Config::Group do

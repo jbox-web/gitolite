@@ -1,9 +1,8 @@
-require 'gratr'
-require 'gitolite/config'
 require 'spec_helper'
 
 describe Gitolite::Config do
-  conf_dir = File.join(File.dirname(__FILE__),'configs')
+
+  conf_dir = File.join(File.dirname(__FILE__), 'fixtures', 'configs')
 
   describe "#new" do
     it 'should read a simple configuration' do

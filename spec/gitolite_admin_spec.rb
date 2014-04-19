@@ -1,9 +1,4 @@
-require 'gratr'
-require 'grit'
-require 'gitolite/gitolite_admin'
-require 'gitolite/config'
 require 'spec_helper'
-include Gitolite
 
 describe Gitolite::GitoliteAdmin do
 
