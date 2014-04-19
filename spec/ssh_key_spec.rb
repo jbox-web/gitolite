@@ -94,6 +94,12 @@ describe Gitolite::SSHKey do
       s.owner.should == 'bob.joe@test.zilla.com'
     end
 
+    it "owner should be bob+joe@test.zilla.com for bob+joe@test.zilla.com@desktop.pub" do
+      key = File.join(key_dir, 'bob+joe@test.zilla.com@desktop.pub')
+      s = SSHKey.from_file(key)
+      s.owner.should == 'bob+joe@test.zilla.com'
+    end
+
     it 'owner should be bob@zilla.com for bob@zilla.com@desktop.pub' do
       key = File.join(key_dir, 'bob@zilla.com@desktop.pub')
       s = SSHKey.from_file(key)
