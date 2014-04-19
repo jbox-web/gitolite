@@ -15,6 +15,7 @@ You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/An
 ## Code status
 
 * [![Build Status](https://travis-ci.org/jbox-web/gitolite.png)](https://travis-ci.org/jbox-web/gitolite)
+* * [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
 
 ## Requirements ##
 * Ruby 1.9.x or 2.0.x
