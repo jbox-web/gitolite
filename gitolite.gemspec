@@ -15,16 +15,17 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "jbox-gitolite"
 
-  s.add_development_dependency "rspec", "~> 2.9.0"
+  s.add_development_dependency "rspec",   "~> 2.9.0"
   s.add_development_dependency "forgery", "~> 0.5.0"
-  s.add_development_dependency "rdoc", "~> 3.12"
+  s.add_development_dependency "rdoc",    "~> 3.12"
+  s.add_development_dependency "rake",    "~> 10.0.2"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-rcov"
   s.add_development_dependency "ci_reporter"
-  s.add_development_dependency "rake", "~> 10.0.2"
+  s.add_development_dependency "rspec_junit_formatter", "~> 0.1.6"
 
-  s.add_dependency "gitlab-grit", "~> 2.6.0"
-  s.add_dependency "gratr19", "~> 0.4.4.1"
+  s.add_dependency "gitlab-grit", "~> 2.6.5"
+  s.add_dependency "gratr19",     "~> 0.4.4.1"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

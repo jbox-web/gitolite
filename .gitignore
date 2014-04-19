@@ -5,3 +5,4 @@ rdoc/*
 *.conf
 coverage
 *.lock
+junit/
