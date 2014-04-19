@@ -48,7 +48,7 @@ matrix:
       jdk: oraclejdk7
 
   include:
-    - rvm:jruby-19mode
+    - rvm: jruby-19mode
       env: JRUBY_OPTS="-Xcext.enabled=true"
 
 gemfile:
