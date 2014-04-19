@@ -20,7 +20,7 @@ describe Gitolite::DirtyProxy do
     end
 
     it 'should equal the target' do
-      proxy.should equal target
+      expect(proxy).to eql(target)
     end
   end
 
