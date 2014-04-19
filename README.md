@@ -1,13 +1,20 @@
-# gitolite [![Build Status](https://travis-ci.org/jbox-web/gitolite.png)](https://travis-ci.org/jbox-web/gitolite)
+## ![logo](https://raw.github.com/jbox-web/redmine_git_hosting/gh-pages/images/git_logo.png) gitolite
 
-This gem is designed to provide a Ruby interface to the [gitolite](https://github.com/sitaramc/gitolite) git backend system.  I am aiming to provide all management functionality that is available via the gitolite-admin repository (like SSH keys, repository permissions, etc)
+### A gem which makes configuring your own Git hosting easy ;)
 
-This gem can still have problems.  Please file an issue if you encounter a bug.  If you have a feature request, file one please.
+This gem is designed to provide a Ruby interface to the [Gitolite](https://github.com/sitaramc/gitolite) Git backend system.
 
-## Features ##
-* Allows for the creation and management of repos within gitolite
-* Allows for the creation and deletion of SSH keys within gitolite
-* Allows for the bootstrapping of a gitolite-admin repository
+It provides these functionalities :
+
+* [SSH Public Keys Management](https://github.com/jbox-web/gitolite/wiki/Features#wiki-ssh-public-keys-management)
+* [Repositories Management](https://github.com/jbox-web/gitolite/wiki/Features#wiki-repositories-management)
+* [Gitolite Admin Repository Bootstrapping](https://github.com/jbox-web/gitolite/wiki/Features#wiki-gitolite-admin-repository-bootstrapping)
+
+You can follow announcements [here](https://github.com/jbox-web/redmine_git_hosting/wiki/Announcements) or take a look at the [roadmap](https://github.com/jbox-web/redmine_git_hosting/wiki/Roadmap).
+
+## Code status
+
+* [![Build Status](https://travis-ci.org/jbox-web/gitolite.png)](https://travis-ci.org/jbox-web/gitolite)
 
 ## Requirements ##
 * Ruby 1.9.x or 2.0.x
