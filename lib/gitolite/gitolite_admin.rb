@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), "dirty_proxy")
-
 module Gitolite
   class GitoliteAdmin
 

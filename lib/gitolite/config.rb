@@ -1,6 +1,4 @@
 require 'tempfile'
-require File.join(File.dirname(__FILE__), 'config', 'repo')
-require File.join(File.dirname(__FILE__), 'config', 'group')
 
 module Gitolite
 
