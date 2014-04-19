@@ -55,7 +55,7 @@ gitolite is completely free and open source and released under the [MIT License]
 
 Copyright (c) 2013-2014 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com)
 
-Copyright (c) 2011-2013 Stafford Brunk (kubitron@cs.berkeley.edu)
+Copyright (c) 2011-2013 Stafford Brunk (stafford.brunk@gmail.com)
 
 ## Contribute
 
