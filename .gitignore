@@ -6,3 +6,4 @@ rdoc/*
 coverage
 *.lock
 junit/
+tmp/
