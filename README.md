@@ -15,7 +15,7 @@ You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/An
 ## Code status
 
 * [![Gem Version](https://badge.fury.io/rb/jbox-gitolite.svg)](http://badge.fury.io/rb/jbox-gitolite)
-* [![Build Status](https://travis-ci.org/jbox-web/gitolite.png)](https://travis-ci.org/jbox-web/gitolite)
+* [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
 * [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
 
 ## Requirements ##
