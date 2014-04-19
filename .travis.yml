@@ -11,6 +11,42 @@ jdk:
  - openjdk7
  - oraclejdk7
 matrix:
+  exclude:
+    - rvm: rbx-2.1.1
+      jdk: openjdk6
+    - rvm: rbx-2.1.1
+      jdk: openjdk7
+    - rvm: rbx-2.1.1
+      jdk: oraclejdk7
+
+    - rvm: 2.1.0
+      jdk: openjdk6
+    - rvm: 2.1.0
+      jdk: openjdk7
+    - rvm: 2.1.0
+      jdk: oraclejdk7
+
+    - rvm: 2.0.0
+      jdk: openjdk6
+    - rvm: 2.0.0
+      jdk: openjdk7
+    - rvm: 2.0.0
+      jdk: oraclejdk7
+
+    - rvm: 1.9.3
+      jdk: openjdk6
+    - rvm: 1.9.3
+      jdk: openjdk7
+    - rvm: 1.9.3
+      jdk: oraclejdk7
+
+    - rvm: 1.9.2
+      jdk: openjdk6
+    - rvm: 1.9.2
+      jdk: openjdk7
+    - rvm: 1.9.2
+      jdk: oraclejdk7
+
   include:
     - rvm: 2.1.0
       jdk:
