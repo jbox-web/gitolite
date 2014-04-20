@@ -15,7 +15,7 @@ describe Gitolite::Config do
     it 'should read a complex configuration' do
       c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
       c.groups.length.should == 5
-      c.repos.length.should == 12
+      c.repos.length.should == 13
     end
 
     describe 'gitweb operations' do
