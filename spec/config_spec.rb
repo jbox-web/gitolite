@@ -332,6 +332,12 @@ describe Gitolite::Config do
       File.unlink(file)
     end
 
+    it 'should create a file at the given path with the config file passed' do
+      c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      file = c.to_file(output_dir)
+      File.file?(File.join(output_dir, c.filename)).should be true
+    end
+
     it 'should create a file at the given path when a different filename is specified' do
       filename = "test.conf"
       c = Gitolite::Config.init
