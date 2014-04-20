@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Gitolite::Config do
 
-  conf_dir = File.join(File.dirname(__FILE__), 'fixtures', 'configs')
+  conf_dir   = File.join(File.dirname(__FILE__), 'fixtures', 'configs')
+  output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
   describe "#new" do
     it 'should read a simple configuration' do
@@ -326,8 +327,8 @@ describe Gitolite::Config do
   describe "#to_file" do
     it 'should create a file at the given path with the config\'s file name' do
       c = Gitolite::Config.init
-      file = c.to_file('/tmp')
-      File.file?(File.join('/tmp', c.filename)).should be true
+      file = c.to_file(output_dir)
+      File.file?(File.join(output_dir, c.filename)).should be true
       File.unlink(file)
     end
 
@@ -335,8 +336,8 @@ describe Gitolite::Config do
       filename = "test.conf"
       c = Gitolite::Config.init
       c.filename = filename
-      file = c.to_file('/tmp')
-      File.file?(File.join('/tmp', filename)).should be true
+      file = c.to_file(output_dir)
+      File.file?(File.join(output_dir, filename)).should be true
       File.unlink(file)
     end
 
@@ -372,7 +373,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Write the config to a file
-      file = c.to_file('/tmp')
+      file = c.to_file(output_dir)
 
       # Read the conf and make sure our order is correct
       f = File.read(file)
@@ -410,7 +411,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Attempt to write the config file
-      lambda{ c.to_file('/tmp')}.should raise_error(Gitolite::Config::GroupDependencyError)
+      lambda{ c.to_file(output_dir)}.should raise_error(Gitolite::Config::GroupDependencyError)
     end
 
     it 'should resolve group dependencies even when there are disconnected portions of the graph' do
@@ -435,7 +436,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Write the config to a file
-      file = c.to_file('/tmp')
+      file = c.to_file(output_dir)
 
       # Read the conf and make sure our order is correct
       f = File.read(file)

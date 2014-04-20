@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'spork'
 require 'forgery'
-require 'tmpdir'
 
 require 'simplecov'
 require 'simplecov-rcov'

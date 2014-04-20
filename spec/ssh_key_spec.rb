@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Gitolite::SSHKey do
-  key_dir = File.join(File.dirname(__FILE__), 'fixtures', 'keys')
+
+  key_dir    = File.join(File.dirname(__FILE__), 'fixtures', 'keys')
+  output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
   describe "#from_string" do
     it 'should construct an SSH key from a string' do
@@ -317,10 +319,11 @@ describe Gitolite::SSHKey do
 
       s = SSHKey.new(type, blob, email, owner, location)
 
-      tmpdir = Dir.tmpdir
-      s.to_file(tmpdir)
+      ## write file
+      s.to_file(output_dir)
 
-      s.to_s.should == File.read(File.join(tmpdir, s.filename))
+      ## compare raw string with written file
+      s.to_s.should == File.read(File.join(output_dir, s.filename))
     end
 
     it 'should return the filename written' do
@@ -332,10 +335,7 @@ describe Gitolite::SSHKey do
 
       s = SSHKey.new(type, blob, email, owner, location)
 
-      tmpdir = Dir.tmpdir
-
-
-      s.to_file(tmpdir).should == File.join(tmpdir, s.filename)
+      s.to_file(output_dir).should == File.join(output_dir, s.filename)
     end
   end
 

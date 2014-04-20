@@ -2,9 +2,11 @@ require 'spec_helper'
 
 describe Gitolite::GitoliteAdmin do
 
+  output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
+
   describe '#bootstrap' do
     it 'should bootstrap a gitolite-admin repository' do
-      test_dir = '/tmp/gitolite-admin-test'
+      test_dir = File.join(output_dir, 'gitolite-admin-test')
       opts = { :overwrite => false }
       gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
 
@@ -13,7 +15,7 @@ describe Gitolite::GitoliteAdmin do
     end
 
     it 'should bootstrap (overwrite) a gitolite-admin repository' do
-      test_dir = '/tmp/gitolite-admin-test'
+      test_dir = File.join(output_dir, 'gitolite-admin-test')
       opts = { :overwrite => true }
       gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
 
@@ -24,7 +26,7 @@ describe Gitolite::GitoliteAdmin do
 
   describe '#is_gitolite_admin_repo?' do
     it 'should detect a non gitolite-admin repository' do
-      test_dir = '/tmp'
+      test_dir = output_dir
       expect(GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be false
     end
   end
