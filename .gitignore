@@ -1,9 +1,8 @@
-pkg/*
 *.gem
-.bundle
-rdoc/*
-*.conf
-coverage
 *.lock
-junit/
-tmp/
+.bundle
+/pkg
+/rdoc
+/coverage
+/junit
+/tmp
