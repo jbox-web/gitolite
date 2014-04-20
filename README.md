@@ -17,6 +17,7 @@ You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/An
 * [![Gem Version](https://badge.fury.io/rb/jbox-gitolite.svg)](http://badge.fury.io/rb/jbox-gitolite)
 * [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
 * [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
+* [![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
 
 ## Requirements ##
 * Ruby 1.9.x or 2.0.x
@@ -32,7 +33,7 @@ Read the documentation and more in the [Wiki](https://github.com/jbox-web/gitoli
 ## Copyrights & License
 gitolite is completely free and open source and released under the [MIT License](https://github.com/jbox-web/gitolite/blob/devel/LICENSE.txt).
 
-Copyright (c) 2013-2014 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com)
+Copyright (c) 2013-2014 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com) [![endorse](https://api.coderwall.com/n-rodriguez/endorsecount.png)](https://coderwall.com/n-rodriguez)
 
 Copyright (c) 2011-2013 Stafford Brunk (stafford.brunk@gmail.com)
 
