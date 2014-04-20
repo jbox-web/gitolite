@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec_junit_formatter", "~> 0.1.6"
 
   s.add_dependency "gitlab-grit", "~> 2.6.5"
-  s.add_dependency "gratr19",     "~> 0.4.4.1"
+  s.add_dependency "plexus",      "~> 0.5.10"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
