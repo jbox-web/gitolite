@@ -1,11 +1,14 @@
 require 'rubygems'
 require 'spork'
 require 'forgery'
+require 'logger'
 
 require 'simplecov'
 require 'simplecov-rcov'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.start
+
+LOG = Logger.new('test.log')
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,

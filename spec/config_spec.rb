@@ -7,20 +7,24 @@ describe Gitolite::Config do
 
   describe "#new" do
     it 'should read a simple configuration' do
-      c = Gitolite::Config.new(File.join(conf_dir, 'simple.conf'))
+      file = File.join(conf_dir, 'simple.conf')
+      c = Gitolite::Config.load_from(file)
       c.repos.length.should == 2
       c.groups.length.should == 0
+      c.file.should == file
     end
 
     it 'should read a complex configuration' do
-      c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      file = File.join(conf_dir, 'complicated.conf')
+      c = Gitolite::Config.load_from(file)
       c.groups.length.should == 5
       c.repos.length.should == 13
+      c.file.should == file
     end
 
     describe 'gitweb operations' do
       before :all do
-        @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+        @config = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
       end
 
       it 'should correctly read gitweb options for an existing repo' do
@@ -52,7 +56,7 @@ describe Gitolite::Config do
         t.write('gitolite "Bob Zilla"')
         t.close
 
-        lambda { Gitolite::Config.new(t.path) }.should raise_error(Gitolite::Config::ParseError)
+        lambda { Gitolite::Config.load_from(t.path) }.should raise_error(Gitolite::Config::ParseError)
 
         t.unlink
       end
@@ -62,7 +66,7 @@ describe Gitolite::Config do
         t.write('@gitolite "Bob Zilla" = "Test description"')
         t.close
 
-        lambda { Gitolite::Config.new(t.path) }.should raise_error(Gitolite::Config::ParseError)
+        lambda { Gitolite::Config.load_from(t.path) }.should raise_error(Gitolite::Config::ParseError)
 
         t.unlink
       end
@@ -70,7 +74,7 @@ describe Gitolite::Config do
 
     describe "git config settings" do
       before :all do
-        @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+        @config = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
       end
 
       it 'should correctly read in git config settings' do
@@ -81,7 +85,7 @@ describe Gitolite::Config do
 
     describe "gitolite options" do
       before :all do
-        @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+        @config = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
       end
 
       it 'should correctly read in gitolite options' do
@@ -94,7 +98,7 @@ describe Gitolite::Config do
         t.write("repo foobar\n  option mirror.master =")
         t.close
 
-        lambda { Gitolite::Config.new(t.path) }.should raise_error(Gitolite::Config::ParseError)
+        lambda { Gitolite::Config.load_from(t.path) }.should raise_error(Gitolite::Config::ParseError)
 
         t.unlink
       end
@@ -110,6 +114,8 @@ describe Gitolite::Config do
       c.repos.length.should be 0
       c.groups.should_not be nil
       c.groups.length.should be 0
+      c.subconfs.should_not be nil
+      c.subconfs.length.should be 0
       c.filename.should == "gitolite.conf"
     end
 
@@ -122,13 +128,15 @@ describe Gitolite::Config do
       c.repos.length.should be 0
       c.groups.should_not be nil
       c.groups.length.should be 0
+      c.subconfs.should_not be nil
+      c.subconfs.length.should be 0
       c.filename.should == filename
     end
   end
 
   describe "repo management" do
     before :each do
-      @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      @config = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
     end
 
     describe "#get_repo" do
@@ -254,7 +262,7 @@ describe Gitolite::Config do
 
   describe "group management" do
     before :each do
-      @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      @config = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
     end
 
     describe "#has_group?" do
@@ -322,6 +330,28 @@ describe Gitolite::Config do
       end
     end
 
+    it 'should ensure save group info when no group dependencies' do
+      c = Gitolite::Config.init
+      c.filename = "test_deptree.conf"
+
+      # Build some groups out of order
+      g = Gitolite::Config::Group.new "groupa"
+      g.add_users "bob", "@all"
+      c.add_group(g)
+
+      # Write the config to a file
+      file = c.to_file('/tmp')
+
+      # Read the conf and make sure our order is correct
+      f = File.read(file)
+      lines = f.lines.map {|l| l.strip}
+
+      # Compare the file lines. Spacing is important here since we are doing a direct comparision
+      lines[0].should == "@groupa             = @all bob"
+
+      # Cleanup
+      File.unlink(file)
+    end
   end
 
   describe "#to_file" do
@@ -333,7 +363,7 @@ describe Gitolite::Config do
     end
 
     it 'should create a file at the given path with the config file passed' do
-      c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      c = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
       file = c.to_file(output_dir)
       File.file?(File.join(output_dir, c.filename)).should be true
     end
@@ -375,7 +405,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       g = Gitolite::Config::Group.new "groupd"
-      g.add_users "larry", "@groupc"
+      g.add_users "larry", "@groupc", "@all"
       c.add_group(g)
 
       # Write the config to a file
@@ -388,7 +418,7 @@ describe Gitolite::Config do
       # Compare the file lines.  Spacing is important here since we are doing a direct comparision
       lines[0].should == "@groupb             = andrew joe sam susan"
       lines[1].should == "@groupc             = @groupb brandon jane"
-      lines[2].should == "@groupd             = @groupc larry"
+      lines[2].should == "@groupd             = @all @groupc larry"
       lines[3].should == "@groupa             = @groupb bob"
 
       # Cleanup

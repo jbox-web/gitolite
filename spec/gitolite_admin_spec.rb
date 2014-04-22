@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Gitolite::GitoliteAdmin do
 
+  conf_dir   = File.join(File.dirname(__FILE__), 'fixtures', 'configs')
   output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
   describe '#bootstrap' do
@@ -31,4 +32,21 @@ describe Gitolite::GitoliteAdmin do
     end
   end
 
+  describe '#save' do
+    it 'should commit file to gitolite-admin repository' do
+      test_dir = File.join(output_dir, 'gitolite-admin-test')
+      opts = { :overwrite => true }
+      gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
+
+      c = Gitolite::Config.load_from(File.join(conf_dir, 'complicated.conf'))
+      c.filename = 'gitolite.conf'
+
+      gl_admin.config = c
+      gl_admin.save
+
+      # File.file?(File.join(output_dir, c.filename)).should be true
+    end
+  end
+
 end
+

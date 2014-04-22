@@ -42,11 +42,11 @@ module Gitolite
       #     gitolite.conf
       #   keydir
       def bootstrap(path, options = {})
-        if self.is_gitolite_admin_repo?(path)
+        if is_gitolite_admin_repo?(path)
           if options[:overwrite]
             FileUtils.rm_rf(File.join(path, '*'))
           else
-            return self.new(path)
+            return new(path)
           end
         end
 
@@ -56,7 +56,7 @@ module Gitolite
         options[:refex] ||= ""
         options[:user]  ||= "git"
 
-        c = Config.init
+        c = Config.new
         r = Config::Repo.new(options[:repo] || "gitolite-admin")
         r.add_permission(options[:perm], options[:refex], options[:user])
         c.add_repo(r)
@@ -66,7 +66,7 @@ module Gitolite
         gl_admin.git.native(:add, {:chdir => gl_admin.working_dir}, config)
         gl_admin.git.native(:commit, {:chdir => gl_admin.working_dir}, '-a', '-m', options[:message] || "Config bootstrapped by the gitolite gem")
 
-        self.new(path)
+        new(path)
       end
 
     end

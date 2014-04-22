@@ -1,25 +1,115 @@
 require 'tempfile'
+require 'pathname'
 
 module Gitolite
 
   class Config
 
-    attr_accessor :repos, :groups, :filename
+    attr_accessor :repos, :groups, :filename, :subconfs, :file, :parent
 
-    def self.init(filename = "gitolite.conf")
-      file = Tempfile.new(filename)
-      conf = self.new(file.path)
-      conf.filename = filename #kill suffix added by Tempfile
-      file.close(unlink_now = true)
-      conf
+
+    class << self
+
+      def init(filename = "gitolite.conf")
+        new(filename)
+      end
+
+
+      def load_from(filename, parent=nil)
+        conf = new(filename, parent)
+        conf.process_config(filename)
+        conf
+      end
+
     end
 
 
-    def initialize(config)
+    def initialize(config='gitolite.conf', parent=nil)
       @repos = {}
       @groups = {}
+      @subconfs = {}
+      @file = config
+      @parent = parent
+      @root_config = nil
       @filename = File.basename(config)
-      process_config(config)
+      @parent.add_subconf(self) if @parent
+    end
+
+
+    def name
+      @file
+    end
+
+
+    def root_config
+      return @root_config if @root_config
+      root = self
+      parent = @parent
+      while parent do
+        root = parent
+        parent = parent.parent
+      end
+      @root_config = root
+      root
+    end
+
+
+    def parent=(conf)
+      raise ArgumentError, "Config must be of type Gitolite::Config!" unless conf.instance_of? Gitolite::Config
+      if has_subconf? conf, 99
+        raise ConfigDependencyError
+      else
+        @parent = conf
+      end
+    end
+
+
+    def add_subconf(conf)
+      raise ArgumentError, "Config must be of type Gitolite::Config!" unless conf.instance_of? Gitolite::Config
+      conf.parent = self if conf.parent != self
+      key = get_relative_path(conf.file)
+      @subconfs[key] = conf
+    end
+
+
+    def get_relative_path(file)
+      path = Pathname.new(file)
+      if path.relative?
+        file
+      else
+        basedir = Pathname.new File.dirname(@file)
+        result = path.relative_path_from(basedir)
+        result.to_s
+      end
+    rescue
+      file
+    end
+
+
+    def has_subconf?(aFile, level = 1)
+      file = get_relative_path(normalize_config_name(aFile))
+      result = @subconfs.has_key?(file)
+      #file.should == '' if aFile == 'subconfs.conf'
+      if !result and (level > 1)
+        level -= 1
+        @subconfs.each do |k, v|
+          result = v.has_subconf?(file, level)
+          break if result
+        end
+      end
+      result
+    end
+
+
+    def get_subconf(file)
+      file = normalize_config_name(file)
+      @subconfs[get_relative_path(file)]
+    end
+
+
+    def rm_subconf(file)
+      file = normalize_config_name(file)
+      @subconfs.delete(get_relative_path(file))
     end
 
 
@@ -72,10 +162,17 @@ module Gitolite
     end
 
 
-    def to_file(path=".", filename=@filename)
-      raise ArgumentError, "Path contains a filename or does not exist" unless File.directory?(path)
-
+    def to_file(path=".", filename=@filename, force_dir=false)
+      filename=@filename if !filename || filename == ''
       new_conf = File.join(path, filename)
+
+      if force_dir
+        vPath = Pathname.new File.dirname(new_conf)
+        vPath.mkpath unless vPath.exist?
+      else
+        raise ArgumentError, "Path contains a filename or does not exist" unless File.directory?(path)
+      end
+
       File.open(new_conf, "w") do |f|
         f.sync = true
 
@@ -94,13 +191,21 @@ module Gitolite
 
         f.write "\n"
         f.write gitweb_descs.join("\n")
+
+        # write subconfs into file
+        gitweb_descs = []
+        @subconfs.each do |k ,v|
+          k = get_relative_path(k)
+          v.to_file(path, k, force_dir)
+          gitweb_descs.push("include    \"#{k}\"")
+        end
+
+        f.write "\n"
+        f.write gitweb_descs.join("\n")
       end
 
       new_conf
     end
-
-
-    private
 
 
     # Based on
@@ -183,10 +288,10 @@ module Gitolite
             owner = $2
             description = $3
 
-            #Check for missing description
+            # Check for missing description
             raise ParseError, "Missing Gitweb description for repo: #{repo}" if description.nil?
 
-            #Check for groups
+            # Check for groups
             raise ParseError, "Gitweb descriptions cannot be set for groups" if repo =~ /@.+/
 
             if has_repo? repo
@@ -203,9 +308,18 @@ module Gitolite
             #TODO: implement includes
             #ignore includes for now
 
-          when /^subconf (\S+)$/
-            #TODO: implement subconfs
-            #ignore subconfs for now
+          when /^subconf (["'])(.+)\1/
+            dir = File.dirname(@file)
+            file = $2
+            path = Pathname.new file
+            file = File.join(dir, file) unless path.absolute?
+            path = Pathname.new file
+            raise ParseError, "'#{line}' '#{file}' not exits!" unless path.file?
+            if not root_config.has_subconf?($2, 99)
+              conf = Gitolite::Config.load_from(file, self)
+            else
+              raise ParseError, "'#{line}' recursive reference!"
+            end
 
           else
             raise ParseError, "'#{line}' cannot be processed"
@@ -213,6 +327,8 @@ module Gitolite
       end
     end
 
+
+    private
 
     # Normalizes the various different input objects to Strings
     def normalize_name(context, constant = nil)
@@ -236,6 +352,8 @@ module Gitolite
             normalize_name(args[0], Gitolite::Config::Repo)
           when "group"
             normalize_name(args[0], Gitolite::Config::Group)
+          when 'config'
+            normalize_name(args[0], Gitolite::Config)
         end
       else
         super
@@ -278,6 +396,11 @@ module Gitolite
 
     # Raised when group dependencies cannot be suitably resolved for output
     class GroupDependencyError < RuntimeError
+    end
+
+
+    # Raised when config dependencies cannot be suitably resolved for output
+    class ConfigDependencyError < RuntimeError
     end
 
   end
