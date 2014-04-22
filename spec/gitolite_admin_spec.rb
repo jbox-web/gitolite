@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Gitolite::GitoliteAdmin do
 
-  output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
+  output_dir = '/tmp'
+  # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
   describe '#bootstrap' do
     it 'should bootstrap a gitolite-admin repository' do

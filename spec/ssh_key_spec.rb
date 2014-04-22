@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Gitolite::SSHKey do
 
   key_dir    = File.join(File.dirname(__FILE__), 'fixtures', 'keys')
-  output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
+  output_dir = '/tmp'
+  # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
   describe "#from_string" do
     it 'should construct an SSH key from a string' do

@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Gitolite::Config do
 
   conf_dir   = File.join(File.dirname(__FILE__), 'fixtures', 'configs')
-  output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
+  output_dir = '/tmp'
+  # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
   describe "#new" do
     it 'should read a simple configuration' do
