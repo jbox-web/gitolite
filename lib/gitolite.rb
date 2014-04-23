@@ -1,6 +1,6 @@
 module Gitolite
   require 'grit'
-  require 'plexus'
+  require 'gratr'
   require 'gitolite/gitolite_admin'
   require 'gitolite/dirty_proxy'
   require 'gitolite/ssh_key'
