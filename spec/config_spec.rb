@@ -9,14 +9,14 @@ describe Gitolite::Config do
   describe "#new" do
     it 'should read a simple configuration' do
       c = Gitolite::Config.new(File.join(conf_dir, 'simple.conf'))
-      c.repos.length.should == 2
-      c.groups.length.should == 0
+      expect(c.repos.length).to eq 2
+      expect(c.groups.length).to eq 0
     end
 
     it 'should read a complex configuration' do
       c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
-      c.groups.length.should == 5
-      c.repos.length.should == 13
+      expect(c.groups.length).to eq 5
+      expect(c.repos.length).to eq 13
     end
 
     describe 'gitweb operations' do
@@ -26,26 +26,26 @@ describe Gitolite::Config do
 
       it 'should correctly read gitweb options for an existing repo' do
         r = @config.get_repo('gitolite')
-        r.owner.should == "Sitaram Chamarty"
-        r.description.should == "fast, secure, access control for git in a corporate environment"
+        expect(r.owner).to eq "Sitaram Chamarty"
+        expect(r.description).to eq "fast, secure, access control for git in a corporate environment"
       end
 
       it 'should correctly read a gitweb option with no owner for an existing repo' do
         r = @config.get_repo('foo')
-        r.owner.should be nil
-        r.description.should == "Foo is a nice test repo"
+        expect(r.owner).to be nil
+        expect(r.description).to eq "Foo is a nice test repo"
       end
 
       it 'should correctly read gitweb options for a new repo' do
         r = @config.get_repo('foobar')
-        r.owner.should == "Bob Zilla"
-        r.description.should == "Foobar is top secret"
+        expect(r.owner).to eq "Bob Zilla"
+        expect(r.description).to eq "Foobar is top secret"
       end
 
       it 'should correctly read gitweb options with no owner for a new repo' do
         r = @config.get_repo('bar')
-        r.owner.should be nil
-        r.description.should == "A nice place to get drinks"
+        expect(r.owner).to be nil
+        expect(r.description).to eq "A nice place to get drinks"
       end
 
       it 'should raise a ParseError when a description is not specified' do
@@ -53,7 +53,7 @@ describe Gitolite::Config do
         t.write('gitolite "Bob Zilla"')
         t.close
 
-        lambda { Gitolite::Config.new(t.path) }.should raise_error(Gitolite::Config::ParseError)
+        expect(lambda { Gitolite::Config.new(t.path) }).to raise_error(Gitolite::Config::ParseError)
 
         t.unlink
       end
@@ -63,7 +63,7 @@ describe Gitolite::Config do
         t.write('@gitolite "Bob Zilla" = "Test description"')
         t.close
 
-        lambda { Gitolite::Config.new(t.path) }.should raise_error(Gitolite::Config::ParseError)
+        expect(lambda { Gitolite::Config.new(t.path) }).to raise_error(Gitolite::Config::ParseError)
 
         t.unlink
       end
@@ -76,7 +76,7 @@ describe Gitolite::Config do
 
       it 'should correctly read in git config settings' do
         r = @config.get_repo(:gitolite)
-        r.config.length.should == 4
+        expect(r.config.length).to eq 4
       end
     end
 
@@ -87,7 +87,7 @@ describe Gitolite::Config do
 
       it 'should correctly read in gitolite options' do
         r = @config.get_repo(:foo)
-        r.options.length.should == 3
+        expect(r.options.length).to eq 3
       end
 
       it 'should raise a ParseError when a value is not specified' do
@@ -95,7 +95,7 @@ describe Gitolite::Config do
         t.write("repo foobar\n  option mirror.master =")
         t.close
 
-        lambda { Gitolite::Config.new(t.path) }.should raise_error(Gitolite::Config::ParseError)
+        expect(lambda { Gitolite::Config.new(t.path) }).to raise_error(Gitolite::Config::ParseError)
 
         t.unlink
       end
@@ -106,24 +106,24 @@ describe Gitolite::Config do
     it 'should create a valid, blank Gitolite::Config' do
       c = Gitolite::Config.init
 
-      c.should be_an_instance_of Gitolite::Config
-      c.repos.should_not be nil
-      c.repos.length.should be 0
-      c.groups.should_not be nil
-      c.groups.length.should be 0
-      c.filename.should == "gitolite.conf"
+      expect(c).to be_an_instance_of Gitolite::Config
+      expect(c.repos).to_not be nil
+      expect(c.repos.length).to be 0
+      expect(c.groups).to_not be nil
+      expect(c.groups.length).to be 0
+      expect(c.filename).to eq "gitolite.conf"
     end
 
     it 'should create a valid, blank Gitolite::Config with the given filename' do
       filename = "test.conf"
       c = Gitolite::Config.init(filename)
 
-      c.should be_an_instance_of Gitolite::Config
-      c.repos.should_not be nil
-      c.repos.length.should be 0
-      c.groups.should_not be nil
-      c.groups.length.should be 0
-      c.filename.should == filename
+      expect(c).to be_an_instance_of Gitolite::Config
+      expect(c.repos).to_not be nil
+      expect(c.repos.length).to be 0
+      expect(c.groups).to_not be nil
+      expect(c.groups.length).to be 0
+      expect(c.filename).to eq filename
     end
   end
 
@@ -134,40 +134,40 @@ describe Gitolite::Config do
 
     describe "#get_repo" do
       it 'should fetch a repo by a string containing the name' do
-        @config.get_repo('gitolite').should be_an_instance_of Gitolite::Config::Repo
+        expect(@config.get_repo('gitolite')).to be_an_instance_of Gitolite::Config::Repo
       end
 
       it 'should fetch a repo via a symbol representing the name' do
-        @config.get_repo(:gitolite).should be_an_instance_of Gitolite::Config::Repo
+        expect(@config.get_repo(:gitolite)).to be_an_instance_of Gitolite::Config::Repo
       end
 
       it 'should return nil for a repo that does not exist' do
-        @config.get_repo(:glite).should be nil
+        expect(@config.get_repo(:glite)).to be nil
       end
     end
 
     describe "#has_repo?" do
       it 'should return false for a repo that does not exist' do
-        @config.has_repo?(:glite).should be false
+        expect(@config.has_repo?(:glite)).to be false
       end
 
       it 'should check for the existance of a repo given a repo object' do
         r = @config.repos["gitolite"]
-        @config.has_repo?(r).should be true
+        expect(@config.has_repo?(r)).to be true
       end
 
       it 'should check for the existance of a repo given a string containing the name' do
-        @config.has_repo?('gitolite').should be true
+        expect(@config.has_repo?('gitolite')).to be true
       end
 
       it 'should check for the existance of a repo given a symbol representing the name' do
-        @config.has_repo?(:gitolite).should be true
+        expect(@config.has_repo?(:gitolite)).to be true
       end
     end
 
     describe "#add_repo" do
       it 'should throw an ArgumentError for non-Gitolite::Config::Repo objects passed in' do
-        lambda{ @config.add_repo("not-a-repo") }.should raise_error(ArgumentError)
+        expect(lambda{ @config.add_repo("not-a-repo") }).to raise_error(ArgumentError)
       end
 
       it 'should add a given repo to the list of repos' do
@@ -175,8 +175,8 @@ describe Gitolite::Config do
         nrepos = @config.repos.size
         @config.add_repo(r)
 
-        @config.repos.size.should == nrepos + 1
-        @config.has_repo?(:cool_repo).should be true
+        expect(@config.repos.size).to eq nrepos + 1
+        expect(@config.has_repo?(:cool_repo)).to be true
       end
 
       it 'should merge a given repo with an existing repo' do
@@ -227,28 +227,28 @@ describe Gitolite::Config do
       it 'should remove a repo for the Gitolite::Config::Repo object given' do
         r = @config.get_repo(:gitolite)
         r2 = @config.rm_repo(r)
-        r2.name.should == r.name
-        r2.permissions.length.should == r.permissions.length
-        r2.owner.should == r.owner
-        r2.description.should == r.description
+        expect(r2.name).to eq r.name
+        expect(r2.permissions.length).to eq r.permissions.length
+        expect(r2.owner).to eq r.owner
+        expect(r2.description).to eq r.description
       end
 
       it 'should remove a repo given a string containing the name' do
         r = @config.get_repo(:gitolite)
         r2 = @config.rm_repo('gitolite')
-        r2.name.should == r.name
-        r2.permissions.length.should == r.permissions.length
-        r2.owner.should == r.owner
-        r2.description.should == r.description
+        expect(r2.name).to eq r.name
+        expect(r2.permissions.length).to eq r.permissions.length
+        expect(r2.owner).to eq r.owner
+        expect(r2.description).to eq r.description
       end
 
       it 'should remove a repo given a symbol representing the name' do
         r = @config.get_repo(:gitolite)
         r2 = @config.rm_repo(:gitolite)
-        r2.name.should == r.name
-        r2.permissions.length.should == r.permissions.length
-        r2.owner.should == r.owner
-        r2.description.should == r.description
+        expect(r2.name).to eq r.name
+        expect(r2.permissions.length).to eq r.permissions.length
+        expect(r2.owner).to eq r.owner
+        expect(r2.description).to eq r.description
       end
     end
   end
@@ -260,44 +260,44 @@ describe Gitolite::Config do
 
     describe "#has_group?" do
       it 'should find the staff group using a symbol' do
-        @config.has_group?(:staff).should be true
+        expect(@config.has_group?(:staff)).to be true
       end
 
       it 'should find the staff group using a string' do
-       @config.has_group?('staff').should be true
+       expect(@config.has_group?('staff')).to be true
       end
 
       it 'should find the staff group using a Gitolite::Config::Group object' do
         g = Gitolite::Config::Group.new("staff")
-        @config.has_group?(g).should be true
+        expect(@config.has_group?(g)).to be true
       end
     end
 
     describe "#get_group" do
       it 'should return the Gitolite::Config::Group object for the group name String' do
         g = @config.get_group("staff")
-        g.is_a?(Gitolite::Config::Group).should be true
-        g.size.should == 6
+        expect(g.is_a?(Gitolite::Config::Group)).to be true
+        expect(g.size).to eq 6
       end
 
       it 'should return the Gitolite::Config::Group object for the group name Symbol' do
         g = @config.get_group(:staff)
-        g.is_a?(Gitolite::Config::Group).should be true
-        g.size.should == 6
+        expect(g.is_a?(Gitolite::Config::Group)).to be true
+        expect(g.size).to eq 6
       end
     end
 
     describe "#add_group" do
       it 'should throw an ArgumentError for non-Gitolite::Config::Group objects passed in' do
-        lambda{ @config.add_group("not-a-group") }.should raise_error(ArgumentError)
+        expect(lambda{ @config.add_group("not-a-group") }).to raise_error(ArgumentError)
       end
 
       it 'should add a given group to the groups list' do
         g = Gitolite::Config::Group.new('cool_group')
         ngroups = @config.groups.size
         @config.add_group(g)
-        @config.groups.size.should be ngroups + 1
-        @config.has_group?(:cool_group).should be true
+        expect(@config.groups.size).to be ngroups + 1
+        expect(@config.has_group?(:cool_group)).to be true
       end
 
     end
@@ -306,20 +306,20 @@ describe Gitolite::Config do
       it 'should remove a group for the Gitolite::Config::Group object given' do
         g = @config.get_group(:oss_repos)
         g2 = @config.rm_group(g)
-        g.should_not be nil
-        g2.name.should == g.name
+        expect(g).to_not be nil
+        expect(g2.name).to eq g.name
       end
 
       it 'should remove a group given a string containing the name' do
         g = @config.get_group(:oss_repos)
         g2 = @config.rm_group('oss_repos')
-        g2.name.should == g.name
+        expect(g2.name).to eq g.name
       end
 
       it 'should remove a group given a symbol representing the name' do
         g = @config.get_group(:oss_repos)
         g2 = @config.rm_group(:oss_repos)
-        g2.name.should == g.name
+        expect(g2.name).to eq g.name
       end
     end
 
@@ -329,14 +329,14 @@ describe Gitolite::Config do
     it 'should create a file at the given path with the config\'s file name' do
       c = Gitolite::Config.init
       file = c.to_file(output_dir)
-      File.file?(File.join(output_dir, c.filename)).should be true
+      expect(File.file?(File.join(output_dir, c.filename))).to be true
       File.unlink(file)
     end
 
     it 'should create a file at the given path with the config file passed' do
       c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
       file = c.to_file(output_dir)
-      File.file?(File.join(output_dir, c.filename)).should be true
+      expect(File.file?(File.join(output_dir, c.filename))).to be true
     end
 
     it 'should create a file at the given path when a different filename is specified' do
@@ -344,18 +344,18 @@ describe Gitolite::Config do
       c = Gitolite::Config.init
       c.filename = filename
       file = c.to_file(output_dir)
-      File.file?(File.join(output_dir, filename)).should be true
+      expect(File.file?(File.join(output_dir, filename))).to be true
       File.unlink(file)
     end
 
     it 'should raise an ArgumentError when an invalid path is specified' do
       c = Gitolite::Config.init
-      lambda { c.to_file('/does/not/exist') }.should raise_error(ArgumentError)
+      expect(lambda { c.to_file('/does/not/exist') }).to raise_error(ArgumentError)
     end
 
     it 'should raise an ArgumentError when a filename is specified in the path' do
       c = Gitolite::Config.init
-      lambda{ c.to_file('/home/test.rb') }.should raise_error(ArgumentError)
+      expect(lambda{ c.to_file('/home/test.rb') }).to raise_error(ArgumentError)
     end
 
     it 'should resolve group dependencies such that all groups are defined before they are used' do
@@ -387,10 +387,10 @@ describe Gitolite::Config do
       lines = f.lines.map {|l| l.strip}
 
       # Compare the file lines.  Spacing is important here since we are doing a direct comparision
-      lines[0].should == "@groupb             = andrew joe sam susan"
-      lines[1].should == "@groupc             = @groupb brandon jane"
-      lines[2].should == "@groupd             = @groupc larry"
-      lines[3].should == "@groupa             = @groupb bob"
+      expect(lines[0]).to eq "@groupb             = andrew joe sam susan"
+      expect(lines[1]).to eq "@groupc             = @groupb brandon jane"
+      expect(lines[2]).to eq "@groupd             = @groupc larry"
+      expect(lines[3]).to eq "@groupa             = @groupb bob"
 
       # Cleanup
       File.unlink(file)
@@ -418,7 +418,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Attempt to write the config file
-      lambda{ c.to_file(output_dir)}.should raise_error(Gitolite::Config::GroupDependencyError)
+      expect(lambda{ c.to_file(output_dir)}).to raise_error(Gitolite::Config::GroupDependencyError)
     end
 
     it 'should resolve group dependencies even when there are disconnected portions of the graph' do
@@ -450,10 +450,10 @@ describe Gitolite::Config do
       lines = f.lines.map {|l| l.strip}
 
       # Compare the file lines.  Spacing is important here since we are doing a direct comparision
-      lines[0].should == "@groupd             = chris emily larry"
-      lines[1].should == "@groupb             = andrew joe sam susan"
-      lines[2].should == "@groupa             = bob stephanie timmy"
-      lines[3].should == "@groupc             = @groupa brandon earl jane"
+      expect(lines[0]).to eq "@groupd             = chris emily larry"
+      expect(lines[1]).to eq "@groupb             = andrew joe sam susan"
+      expect(lines[2]).to eq "@groupa             = bob stephanie timmy"
+      expect(lines[3]).to eq "@groupc             = @groupa brandon earl jane"
 
       # Cleanup
       File.unlink(file)
@@ -467,32 +467,32 @@ describe Gitolite::Config do
 
     it 'should remove comments' do
       s = "#comment"
-      @config.instance_eval { cleanup_config_line(s) }.empty?.should == true
+      expect(@config.instance_eval { cleanup_config_line(s) }.empty?).to eq true
     end
 
     it 'should remove inline comments, keeping content before the comment' do
       s = "blablabla #comment"
-      @config.instance_eval { cleanup_config_line(s) }.should == "blablabla"
+      expect(@config.instance_eval { cleanup_config_line(s) }).to eq "blablabla"
     end
 
     it 'should pad = with spaces on each side' do
       s = "bob=joe"
-      @config.instance_eval { cleanup_config_line(s) }.should == "bob = joe"
+      expect(@config.instance_eval { cleanup_config_line(s) }).to eq "bob = joe"
     end
 
     it 'should replace multiple space characters with a single space' do
       s = "bob       =        joe"
-      @config.instance_eval { cleanup_config_line(s) }.should == "bob = joe"
+      expect(@config.instance_eval { cleanup_config_line(s) }).to eq "bob = joe"
     end
 
     it 'should cleanup whitespace at the beginning and end of lines' do
       s = "            bob = joe            "
-      @config.instance_eval { cleanup_config_line(s) }.should == "bob = joe"
+      expect(@config.instance_eval { cleanup_config_line(s) }).to eq "bob = joe"
     end
 
     it 'should cleanup whitespace and comments effectively' do
       s = "            bob     =     joe             #comment"
-      @config.instance_eval { cleanup_config_line(s) }.should == "bob = joe"
+      expect(@config.instance_eval { cleanup_config_line(s) }).to eq "bob = joe"
     end
   end
 end
