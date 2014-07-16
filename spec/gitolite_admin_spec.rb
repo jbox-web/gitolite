@@ -8,7 +8,7 @@ describe Gitolite::GitoliteAdmin do
 
   describe '#bootstrap' do
     it 'should bootstrap a gitolite-admin repository' do
-      test_dir = File.join(output_dir, 'gitolite-admin-test')
+      test_dir = File.join(output_dir, 'gitolite-admin-test1')
       opts = { :overwrite => false }
       gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
 
@@ -17,7 +17,7 @@ describe Gitolite::GitoliteAdmin do
     end
 
     it 'should bootstrap (overwrite) a gitolite-admin repository' do
-      test_dir = File.join(output_dir, 'gitolite-admin-test')
+      test_dir = File.join(output_dir, 'gitolite-admin-test1')
       opts = { :overwrite => true }
       gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
 
@@ -35,7 +35,7 @@ describe Gitolite::GitoliteAdmin do
 
   describe '#save' do
     it 'should commit file to gitolite-admin repository' do
-      test_dir = File.join(output_dir, 'gitolite-admin-test')
+      test_dir = File.join(output_dir, 'gitolite-admin-test2')
       opts = { :overwrite => true }
       gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
 

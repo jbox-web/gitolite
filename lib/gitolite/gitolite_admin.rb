@@ -63,8 +63,8 @@ module Gitolite
         config = c.to_file(File.join(path, "conf"))
 
         gl_admin = Grit::Repo.init(path)
-        gl_admin.git.native(:add, {:chdir => gl_admin.working_dir}, config)
-        gl_admin.git.native(:commit, {:chdir => gl_admin.working_dir}, '-a', '-m', options[:message] || "Config bootstrapped by the gitolite gem")
+        gl_admin.git.native(:add, {}, config)
+        gl_admin.git.native(:commit, {}, '-a', '-m', options[:message] || "Config bootstrapped by the gitolite gem")
 
         self.new(path)
       end
@@ -125,8 +125,8 @@ module Gitolite
     # git repo to HEAD and reloading the entire repository
     # Note that this will also delete all untracked files
     def reset!
-      @gl_admin.git.native(:reset, {:env => @env, :chdir => @gl_admin.working_dir, :hard => true}, 'HEAD')
-      @gl_admin.git.native(:clean, {:env => @env, :chdir => @gl_admin.working_dir, :d => true, :q => true, :f => true})
+      @gl_admin.git.native(:reset, {:env => @env, :hard => true}, 'HEAD')
+      @gl_admin.git.native(:clean, {:env => @env, :d => true, :q => true, :f => true})
       reload!
     end
 
@@ -146,7 +146,7 @@ module Gitolite
       #Process config file (if loaded, i.e. may be modified)
       if @config
         new_conf = @config.to_file(@conf_dir_path)
-        @gl_admin.git.native(:add, {:env => @env, :chdir => @gl_admin.working_dir}, new_conf)
+        @gl_admin.git.native(:add, {:env => @env}, new_conf)
       end
 
       #Process ssh keys (if loaded, i.e. may be modified)
@@ -156,7 +156,7 @@ module Gitolite
 
         to_remove = (files - keys).map { |f| File.join(@key_dir, f) }
         to_remove.each do |key|
-          @gl_admin.git.native(:rm, {:env => @env, :chdir => @gl_admin.working_dir}, key)
+          @gl_admin.git.native(:rm, {:env => @env}, key)
         end
 
         @ssh_keys.each_value do |key|
@@ -164,24 +164,28 @@ module Gitolite
           next if key.respond_to?(:dirty?) && !key.dirty?
           key.each do |k|
             new_key = k.to_file(@key_dir_path)
-            @gl_admin.git.native(:add, {:env => @env, :chdir => @gl_admin.working_dir}, new_key)
+            @gl_admin.git.native(:add, {:env => @env}, new_key)
           end
         end
       end
 
       args = []
 
+      args << '-a'
+      args << '-m'
+      args << commit_message
+
       if options.has_key?(:author) && !options[:author].empty?
         args << "--author='#{options[:author]}'"
       end
 
-      @gl_admin.git.native(:commit, {:env => @env, :chdir => @gl_admin.working_dir}, '-a', '-m', commit_message, args.join(' '))
+      @gl_admin.git.native(:commit, {:env => @env}, *args)
     end
 
 
     # Push back to origin
     def apply
-      @gl_admin.git.native(:push, {:env => @env, :chdir => @gl_admin.working_dir}, "origin", "master")
+      @gl_admin.git.native(:push, {:env => @env}, "origin", "master")
     end
 
 
@@ -198,7 +202,7 @@ module Gitolite
 
       reset! if options[:reset]
 
-      @gl_admin.git.native(:pull, {:env => @env, :chdir => @gl_admin.working_dir, :rebase => options[:rebase]}, "origin", "master")
+      @gl_admin.git.native(:pull, {:env => @env, :rebase => options[:rebase]}, "origin", "master")
 
       reload!
     end
