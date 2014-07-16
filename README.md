@@ -4,6 +4,8 @@
 
 This gem is designed to provide a Ruby interface to the [Gitolite](https://github.com/sitaramc/gitolite) Git backend system.
 
+It is based on [gitlab-grit](https://github.com/gitlabhq/grit) to manage the repository.
+
 It provides these functionalities :
 
 * [SSH Public Keys Management](https://github.com/jbox-web/gitolite/wiki/Features#wiki-ssh-public-keys-management)
@@ -11,6 +13,11 @@ It provides these functionalities :
 * [Gitolite Admin Repository Bootstrapping](https://github.com/jbox-web/gitolite/wiki/Features#wiki-gitolite-admin-repository-bootstrapping)
 
 You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/Announcements) or take a look at the [roadmap](https://github.com/jbox-web/gitolite/wiki/Roadmap).
+
+You'll find a new implementation of this library here : https://github.com/oliverguenther/gitolite-rugged.
+
+The new one is based on https://github.com/libgit2/rugged and provide the same functionalities.
+
 
 ## Code status
 
