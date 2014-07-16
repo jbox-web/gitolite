@@ -44,7 +44,7 @@ desc "Start unit tests"
 task :test => :default
 task :default do
   RSpec::Core::RakeTask.new(:spec) do |config|
-    config.rspec_opts = "--color --format nested --fail-fast"
+    config.rspec_opts = "--color --format documentation"
   end
   Rake::Task["spec"].invoke
 end
