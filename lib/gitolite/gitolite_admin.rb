@@ -9,6 +9,9 @@ module Gitolite
     DEBUG       = false
     TIMEOUT     = 10
 
+    # See here form mode details :https://github.com/gitlabhq/grit/blob/master/lib/grit/git.rb#L283
+    RAISE_ERROR = true
+
     # Gitolite gem's default commit message
     DEFAULT_COMMIT_MSG = "Committed by the gitolite gem"
 
@@ -80,7 +83,10 @@ module Gitolite
       @config_file = options[:config_file] || CONFIG_FILE
       @conf_dir    = options[:conf_dir] || CONF_DIR
       @key_dir     = options[:key_dir] || KEY_DIR
-      @env         = options[:env] || {}
+      git_env      = options[:env] || {}
+      git_raise    = options[:raise] || RAISE_ERROR
+
+      @git_options = {:env => git_env, :raise => git_raise}
 
       @config_file_path = File.join(@path, @conf_dir, @config_file)
       @conf_dir_path    = File.join(@path, @conf_dir)
@@ -125,8 +131,8 @@ module Gitolite
     # git repo to HEAD and reloading the entire repository
     # Note that this will also delete all untracked files
     def reset!
-      @gl_admin.git.native(:reset, {:env => @env, :hard => true}, 'HEAD')
-      @gl_admin.git.native(:clean, {:env => @env, :d => true, :q => true, :f => true})
+      @gl_admin.git.native(:reset, @git_options.merge(:hard => true), 'HEAD')
+      @gl_admin.git.native(:clean, @git_options.merge(:d => true, :q => true, :f => true))
       reload!
     end
 
@@ -146,7 +152,7 @@ module Gitolite
       #Process config file (if loaded, i.e. may be modified)
       if @config
         new_conf = @config.to_file(@conf_dir_path)
-        @gl_admin.git.native(:add, {:env => @env}, new_conf)
+        @gl_admin.git.native(:add, @git_options, new_conf)
       end
 
       #Process ssh keys (if loaded, i.e. may be modified)
@@ -156,7 +162,7 @@ module Gitolite
 
         to_remove = (files - keys).map { |f| File.join(@key_dir, f) }
         to_remove.each do |key|
-          @gl_admin.git.native(:rm, {:env => @env}, key)
+          @gl_admin.git.native(:rm, @git_options, key)
         end
 
         @ssh_keys.each_value do |key|
@@ -164,7 +170,7 @@ module Gitolite
           next if key.respond_to?(:dirty?) && !key.dirty?
           key.each do |k|
             new_key = k.to_file(@key_dir_path)
-            @gl_admin.git.native(:add, {:env => @env}, new_key)
+            @gl_admin.git.native(:add, @git_options, new_key)
           end
         end
       end
@@ -179,13 +185,13 @@ module Gitolite
         args << "--author='#{options[:author]}'"
       end
 
-      @gl_admin.git.native(:commit, {:env => @env}, *args)
+      @gl_admin.git.native(:commit, @git_options, *args)
     end
 
 
     # Push back to origin
     def apply
-      @gl_admin.git.native(:push, {:env => @env}, "origin", "master")
+      @gl_admin.git.native(:push, @git_options, "origin", "master")
     end
 
 
@@ -202,7 +208,7 @@ module Gitolite
 
       reset! if options[:reset]
 
-      @gl_admin.git.native(:pull, {:env => @env, :rebase => options[:rebase]}, "origin", "master")
+      @gl_admin.git.native(:pull, @git_options.merge(:rebase => options[:rebase]), "origin", "master")
 
       reload!
     end
