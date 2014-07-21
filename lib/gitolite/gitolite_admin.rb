@@ -100,6 +100,11 @@ module Gitolite
     end
 
 
+    def git_options
+      @git_options.clone
+    end
+
+
     def config
       @config ||= load_config
     end
@@ -131,8 +136,8 @@ module Gitolite
     # git repo to HEAD and reloading the entire repository
     # Note that this will also delete all untracked files
     def reset!
-      @gl_admin.git.native(:reset, @git_options.merge(:hard => true), 'HEAD')
-      @gl_admin.git.native(:clean, @git_options.merge(:d => true, :q => true, :f => true))
+      @gl_admin.git.native(:reset, git_options.merge(:hard => true), 'HEAD')
+      @gl_admin.git.native(:clean, git_options.merge(:d => true, :q => true, :f => true))
       reload!
     end
 
@@ -149,20 +154,20 @@ module Gitolite
     # will also stage all changes then commit
     def save(commit_message = DEFAULT_COMMIT_MSG, options = {})
 
-      #Process config file (if loaded, i.e. may be modified)
+      # Process config file (if loaded, i.e. may be modified)
       if @config
         new_conf = @config.to_file(@conf_dir_path)
-        @gl_admin.git.native(:add, @git_options, new_conf)
+        @gl_admin.git.native(:add, git_options, new_conf)
       end
 
-      #Process ssh keys (if loaded, i.e. may be modified)
+      # Process ssh keys (if loaded, i.e. may be modified)
       if @ssh_keys
         files = list_keys.map{|f| File.basename f}
         keys  = @ssh_keys.values.map{|f| f.map {|t| t.filename}}.flatten
 
         to_remove = (files - keys).map { |f| File.join(@key_dir, f) }
         to_remove.each do |key|
-          @gl_admin.git.native(:rm, @git_options, key)
+          @gl_admin.git.native(:rm, git_options, key)
         end
 
         @ssh_keys.each_value do |key|
@@ -170,7 +175,7 @@ module Gitolite
           next if key.respond_to?(:dirty?) && !key.dirty?
           key.each do |k|
             new_key = k.to_file(@key_dir_path)
-            @gl_admin.git.native(:add, @git_options, new_key)
+            @gl_admin.git.native(:add, git_options, new_key)
           end
         end
       end
@@ -185,13 +190,13 @@ module Gitolite
         args << "--author='#{options[:author]}'"
       end
 
-      @gl_admin.git.native(:commit, @git_options, *args)
+      @gl_admin.git.native(:commit, git_options, *args)
     end
 
 
     # Push back to origin
     def apply
-      @gl_admin.git.native(:push, @git_options, "origin", "master")
+      @gl_admin.git.native(:push, git_options, "origin", "master")
     end
 
 
@@ -208,7 +213,7 @@ module Gitolite
 
       reset! if options[:reset]
 
-      @gl_admin.git.native(:pull, @git_options.merge(:rebase => options[:rebase]), "origin", "master")
+      @gl_admin.git.native(:pull, git_options.merge(:rebase => options[:rebase]), "origin", "master")
 
       reload!
     end
