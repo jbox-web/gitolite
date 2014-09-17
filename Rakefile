@@ -2,9 +2,9 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 require 'rake'
+require 'ci/reporter/rake/rspec'
 require 'rspec/core/rake_task'
 require 'rdoc/task'
-
 
 ## Helper Functions
 def name
@@ -40,20 +40,19 @@ task :version do
 end
 
 
-desc "Start unit tests"
-task :test => :default
-task :default do
-  RSpec::Core::RakeTask.new(:spec) do |config|
-    config.rspec_opts = "--color --format documentation"
+namespace :gitolite do
+  ENV["CI_REPORTS"] = "./junit"
+
+  desc "Configure unit tests"
+  RSpec::Core::RakeTask.new(:config_rspec) do |task|
+    task.rspec_opts = "--color"
   end
-  Rake::Task["spec"].invoke
+
+  desc "Start unit tests"
+  task :ci => ['ci:setup:rspec', :config_rspec]
 end
 
-
-desc "Start unit tests in JUnit format"
-task :test_junit do
-  RSpec::Core::RakeTask.new(:spec) do |config|
-    config.rspec_opts = "--format RspecJunitFormatter --out junit/rspec.xml"
-  end
-  Rake::Task["spec"].invoke
-end
+task :default => "gitolite:ci"
+task :spec    => "gitolite:ci"
+task :rspec   => "gitolite:ci"
+task :test    => "gitolite:ci"
