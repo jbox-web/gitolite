@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov-rcov', '~> 0.2', '>= 0.2.3'
   s.add_development_dependency 'ci_reporter_rspec', '~> 1.0', '>= 1.0.0'
 
-  s.add_runtime_dependency 'gitlab-grit', '~> 2.7', '>= 2.7.1'
+  s.add_runtime_dependency 'gitlab-grit', '~> 2.7', '>= 2.7.2'
   s.add_runtime_dependency 'gratr19', '~> 0.4', '>= 0.4.4.1'
 
   s.files         = `git ls-files`.split("\n")
