@@ -18,10 +18,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 10.3', '>= 10.3.1'
   s.add_development_dependency 'rdoc', '~> 4.1', '>= 4.1.1'
   s.add_development_dependency 'rspec', '~> 3.0', '>= 3.0.0'
-  s.add_development_dependency 'guard-rspec', '~> 4.2', '>= 4.2.8'
-  s.add_development_dependency 'guard-spork', '~> 1.5', '>= 1.5.1'
   s.add_development_dependency 'forgery', '~> 0.6', '>= 0.6.0'
-  s.add_development_dependency 'simplecov', '~> 0.8', '>= 0.8.2'
+  s.add_development_dependency 'simplecov', '~> 0.9', '>= 0.9.1'
   s.add_development_dependency 'simplecov-rcov', '~> 0.2', '>= 0.2.3'
   s.add_development_dependency 'ci_reporter_rspec', '~> 1.0', '>= 1.0.0'
 
