@@ -25,6 +25,8 @@ The new one is based on https://github.com/libgit2/rugged and provide the same f
 * [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
 * [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
 * [![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
+* [![Coverage Status](https://coveralls.io/repos/jbox-web/gitolite/badge.png?branch=devel)](https://coveralls.io/r/jbox-web/gitolite?branch=devel)
+* [![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
 
 ## Requirements ##
 
