@@ -38,7 +38,7 @@ The new one is based on https://github.com/libgit2/rugged and provide the same f
 Read the documentation and more in the [Wiki](https://github.com/jbox-web/gitolite/wiki).
 
 ## Copyrights & License
-gitolite is completely free and open source and released under the [MIT License](https://github.com/jbox-web/gitolite/blob/devel/LICENSE.txt).
+gitolite is completely free and open source and released under the [MIT License](https://github.com/jbox-web/gitolite/blob/devel/LICENSE).
 
 Copyright (c) 2013-2014 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com) [![endorse](https://api.coderwall.com/n-rodriguez/endorsecount.png)](https://coderwall.com/n-rodriguez)
 
