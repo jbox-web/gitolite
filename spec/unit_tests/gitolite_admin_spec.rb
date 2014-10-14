@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Gitolite::GitoliteAdmin do
 
-  conf_dir   = File.join(File.dirname(__FILE__), 'fixtures', 'configs')
+  conf_dir   = config_files_dir
   output_dir = '/tmp'
   # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 

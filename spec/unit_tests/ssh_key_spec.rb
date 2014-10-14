@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Gitolite::SSHKey do
 
-  key_dir    = File.join(File.dirname(__FILE__), 'fixtures', 'keys')
+  key_dir    = ssh_key_files_dir
   output_dir = '/tmp'
   # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
 
