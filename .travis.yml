@@ -5,6 +5,9 @@ rvm:
  - 1.9.3
 gemfile:
  - Gemfile
+env:
+  global:
+    - CODECLIMATE_REPO_TOKEN=962aacb3c0e56baae426a19cc2c7bfefc832bf1f2ac2282bdde16d64262afc89
 branches:
   only:
     - devel
