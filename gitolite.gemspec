@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake', '~> 10.3', '>= 10.3.1'
   s.add_development_dependency 'rdoc', '~> 4.1', '>= 4.1.1'
-  s.add_development_dependency 'rspec', '~> 3.0', '>= 3.0.0'
+  s.add_development_dependency 'rspec', '~> 3.1', '>= 3.1.0'
   s.add_development_dependency 'forgery', '~> 0.6', '>= 0.6.0'
   s.add_development_dependency 'simplecov', '~> 0.9', '>= 0.9.1'
   s.add_development_dependency 'simplecov-rcov', '~> 0.2', '>= 0.2.3'
