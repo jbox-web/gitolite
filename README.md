@@ -1,5 +1,12 @@
 ## ![logo](https://raw.github.com/jbox-web/gitolite/gh-pages/images/git_logo.png) gitolite
 
+[![Gem Version](https://badge.fury.io/rb/jbox-gitolite.svg)](http://badge.fury.io/rb/jbox-gitolite)
+[![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
+[![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
+[![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
+[![Coverage Status](https://coveralls.io/repos/jbox-web/gitolite/badge.png?branch=devel)](https://coveralls.io/r/jbox-web/gitolite?branch=devel)
+[![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
+
 ### A gem which makes configuring your own Git hosting easy ;)
 
 This gem is designed to provide a Ruby interface to the [Gitolite](https://github.com/sitaramc/gitolite) Git backend system.
@@ -17,16 +24,6 @@ You can follow announcements [here](https://github.com/jbox-web/gitolite/wiki/An
 You'll find a new implementation of this library here : https://github.com/oliverguenther/gitolite-rugged.
 
 The new one is based on https://github.com/libgit2/rugged and provide the same functionalities.
-
-
-## Code status
-
-* [![Gem Version](https://badge.fury.io/rb/jbox-gitolite.svg)](http://badge.fury.io/rb/jbox-gitolite)
-* [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
-* [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
-* [![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
-* [![Coverage Status](https://coveralls.io/repos/jbox-web/gitolite/badge.png?branch=devel)](https://coveralls.io/r/jbox-web/gitolite?branch=devel)
-* [![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
 
 ## Requirements ##
 
