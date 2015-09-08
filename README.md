@@ -19,6 +19,10 @@ It provides these functionalities :
 * Repositories Management
 * Gitolite Admin Repository Bootstrapping
 
+***Please note : this project is not maintained anymore.***
+
+***You'll find a new implementation of this library here : [gitolite-rugged](https://github.com/jbox-web/gitolite-rugged).***
+
 ## Requirements ##
 
 * Ruby 1.9.x or 2.0.x
