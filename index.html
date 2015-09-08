@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Gitolite by jbox-web</title>
+    <title>jbox-gitolite by jbox-web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -11,18 +11,15 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Gitolite</h1>
-      <h2 class="project-tagline">A gem which makes configuring your own Git hosting easy ;)</h2>
+      <h1 class="project-name">jbox-gitolite</h1>
+      <h2 class="project-tagline">A Ruby interface to manage the Gitolite Git backend system, easy ;)</h2>
       <a href="https://github.com/jbox-web/gitolite" class="btn">View on GitHub</a>
       <a href="https://github.com/jbox-web/gitolite/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/jbox-web/gitolite/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
-      <h2>
-<a id="-gitolite" class="anchor" href="#-gitolite" aria-hidden="true"><span class="octicon octicon-link"></span></a><img src="https://raw.github.com/jbox-web/gitolite/gh-pages/images/git_logo.png" alt="logo"> gitolite</h2>
-
-<p><a href="https://github.com/jbox-web/gitolite/blob/devel/LICENSE"><img src="https://img.shields.io/github/license/jbox-web/gitolite.svg" alt="GitHub license"></a>
+      <p><a href="https://github.com/jbox-web/gitolite/blob/devel/LICENSE"><img src="https://img.shields.io/github/license/jbox-web/gitolite.svg" alt="GitHub license"></a>
 <a href="https://rubygems.org/gems/jbox-gitolite"><img src="https://img.shields.io/gem/v/jbox-gitolite.svg" alt="Gem"></a>
 <a href="https://rubygems.org/gems/jbox-gitolite/versions/1.2.6"><img src="https://img.shields.io/gem/dv/jbox-gitolite/1.2.6.svg" alt="Gem"></a>
 <a href="https://travis-ci.org/jbox-web/gitolite"><img src="https://travis-ci.org/jbox-web/gitolite.svg?branch=devel" alt="Build Status"></a>
@@ -31,34 +28,26 @@
 <a href="https://coveralls.io/r/jbox-web/gitolite?branch=devel"><img src="https://coveralls.io/repos/jbox-web/gitolite/badge.png?branch=devel" alt="Coverage Status"></a>
 <a href="https://codeclimate.com/github/jbox-web/gitolite"><img src="https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg" alt="Test Coverage"></a></p>
 
-<h3>
-<a id="a-gem-which-makes-configuring-your-own-git-hosting-easy-" class="anchor" href="#a-gem-which-makes-configuring-your-own-git-hosting-easy-" aria-hidden="true"><span class="octicon octicon-link"></span></a>A gem which makes configuring your own Git hosting easy ;)</h3>
-
-<p>This gem is designed to provide a Ruby interface to the <a href="https://github.com/sitaramc/gitolite">Gitolite</a> Git backend system.</p>
-
-<p>It is based on <a href="https://github.com/gitlabhq/grit">gitlab-grit</a> to manage the repository.</p>
+<p>This gem is designed to provide a Ruby interface to the <a href="https://github.com/sitaramc/gitolite">Gitolite</a> Git backend system via <a href="https://github.com/gitlabhq/grit">gitlab-grit</a> gem.</p>
 
 <p>It provides these functionalities :</p>
 
 <ul>
-<li><a href="https://github.com/jbox-web/gitolite/wiki/Features#wiki-ssh-public-keys-management">SSH Public Keys Management</a></li>
-<li><a href="https://github.com/jbox-web/gitolite/wiki/Features#wiki-repositories-management">Repositories Management</a></li>
-<li><a href="https://github.com/jbox-web/gitolite/wiki/Features#wiki-gitolite-admin-repository-bootstrapping">Gitolite Admin Repository Bootstrapping</a></li>
+<li>SSH Public Keys Management</li>
+<li>Repositories Management</li>
+<li>Gitolite Admin Repository Bootstrapping</li>
 </ul>
 
-<p>You can follow announcements <a href="https://github.com/jbox-web/gitolite/wiki/Announcements">here</a> or take a look at the <a href="https://github.com/jbox-web/gitolite/wiki/Roadmap">roadmap</a>.</p>
+<p><strong><em>Please note : this project is not maintained anymore.</em></strong></p>
 
-<p>You'll find a new implementation of this library here : <a href="https://github.com/oliverguenther/gitolite-rugged">https://github.com/oliverguenther/gitolite-rugged</a>.</p>
-
-<p>The new one is based on <a href="https://github.com/libgit2/rugged">https://github.com/libgit2/rugged</a> and provide the same functionalities.</p>
+<p><strong><em>You'll find a new implementation of this library here : <a href="https://github.com/jbox-web/gitolite-rugged">gitolite-rugged</a>.</em></strong></p>
 
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
 
 <ul>
 <li>Ruby 1.9.x or 2.0.x</li>
-<li>a working <a href="https://github.com/sitaramc/gitolite">gitolite</a> installation</li>
-<li>the <tt>gitolite-admin</tt> repository checked out locally</li>
+<li>a working <a href="https://github.com/sitaramc/gitolite">Gitolite</a> installation</li>
 </ul>
 
 <h2>
@@ -68,7 +57,193 @@
 
 <p>then <code>bundle install</code>.</p>
 
-<p>Read the documentation and more in the <a href="https://github.com/jbox-web/gitolite/wiki">Wiki</a>.</p>
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="load-a-gitolite-admin-repo" class="anchor" href="#load-a-gitolite-admin-repo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Load a gitolite-admin repo</h3>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>gitolite<span class="pl-pds">'</span></span>
+ga_repo <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">GitoliteAdmin</span>.<span class="pl-k">new</span>(<span class="pl-s"><span class="pl-pds">"</span>/path/to/gitolite/admin/repo<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># or with options :</span>
+ga_repo <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">GitoliteAdmin</span>.<span class="pl-k">new</span>(<span class="pl-s"><span class="pl-pds">"</span>/path/to/gitolite/admin/repo<span class="pl-pds">"</span></span>, <span class="pl-c1">:config_file</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>example.conf<span class="pl-pds">'</span></span>,
+                                                                      <span class="pl-c1">:debug</span>       =&gt; <span class="pl-c1">true</span>,
+                                                                      <span class="pl-c1">:timeout</span>     =&gt; <span class="pl-c1">20</span>,
+                                                                      <span class="pl-c1">:env</span>         =&gt; {<span class="pl-s"><span class="pl-pds">'</span>GIT_SSH<span class="pl-pds">'</span></span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>/path/to/script/file<span class="pl-pds">'</span></span>})</pre></div>
+
+<p>This method can only be called on an existing gitolite-admin repo. If you need to create a new gitolite-admin repo, see "Bootstrapping".</p>
+
+<h3>
+<a id="configuration-files" class="anchor" href="#configuration-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration Files</h3>
+
+<div class="highlight highlight-ruby"><pre>conf <span class="pl-k">=</span> ga_repo.config
+
+<span class="pl-c"># Empty configs can also be initialized</span>
+conf2 <span class="pl-k">=</span> <span class="pl-c1">Config</span>.init <span class="pl-c"># =&gt; defaults to a filename of gitolite.conf</span>
+conf2 <span class="pl-k">=</span> <span class="pl-c1">Config</span>.init(<span class="pl-s"><span class="pl-pds">"</span>new_config.conf<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># Filename is set to whatever the filename was when the config was created</span>
+conf.filename <span class="pl-c"># =&gt; "gitolite.conf"</span>
+conf2.filename <span class="pl-c"># =&gt; "new_config.conf"</span>
+
+<span class="pl-c"># Filename can be changed via the setter</span>
+conf2.filename <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>new_config.conf<span class="pl-pds">"</span></span>
+
+<span class="pl-c"># *to_file* will write the config out to the file system using the value of the filename attribute.</span>
+<span class="pl-c"># An alternative filename can also be specified</span>
+conf.to_file(<span class="pl-s"><span class="pl-pds">"</span>/new/config/path<span class="pl-pds">"</span></span>) <span class="pl-c"># =&gt; writes /new/config/path/gitolite.conf</span>
+conf.to_file(<span class="pl-s"><span class="pl-pds">"</span>/new/config/path<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>test.conf<span class="pl-pds">"</span></span>) <span class="pl-c"># =&gt; writes /new/config/path/test.conf</span></pre></div>
+
+<h3>
+<a id="repo-management" class="anchor" href="#repo-management" aria-hidden="true"><span class="octicon octicon-link"></span></a>Repo management</h3>
+
+<div class="highlight highlight-ruby"><pre>repo <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">Config</span>::<span class="pl-c1">Repo</span>.<span class="pl-k">new</span>(<span class="pl-s"><span class="pl-pds">"</span>AwesomeRepo<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># For a list of permissions, see http://sitaramc.github.com/gitolite/conf.html#gitolite</span>
+repo.add_permission(<span class="pl-s"><span class="pl-pds">"</span>RW+<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bob<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>joe<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>susan<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># Set a git config option to the repo</span>
+repo.set_git_config(<span class="pl-s"><span class="pl-pds">"</span>hooks.mailinglist<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>gitolite-commits@example.tld<span class="pl-pds">"</span></span>) <span class="pl-c"># =&gt; "gitolite-commits@example.tld"</span>
+
+<span class="pl-c"># Unset a git config option from the repo</span>
+repo.unset_git_config(<span class="pl-s"><span class="pl-pds">"</span>hooks.mailinglist<span class="pl-pds">"</span></span>) <span class="pl-c"># =&gt; "gitolite-commits@example.tld"</span>
+
+<span class="pl-c"># Set a gitolite option to the repo</span>
+repo.set_gitolite_option(<span class="pl-s"><span class="pl-pds">"</span>mirroring.master<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>kenobi<span class="pl-pds">"</span></span>) <span class="pl-c"># =&gt; "kenobi"</span>
+
+<span class="pl-c"># Remove a gitolite option from the repo</span>
+repo.unset_gitolite_option(<span class="pl-s"><span class="pl-pds">"</span>mirroring.master<span class="pl-pds">"</span></span>) <span class="pl-c"># =&gt; "kenobi"</span>
+
+<span class="pl-c"># Add repo to config</span>
+conf.add_repo(repo)
+
+<span class="pl-c"># Delete repo by object</span>
+conf.rm_repo(repo)
+
+<span class="pl-c"># Delete a repo by name</span>
+conf.rm_repo(<span class="pl-s"><span class="pl-pds">"</span>AwesomeRepo<span class="pl-pds">"</span></span>)
+conf.rm_repo(<span class="pl-c1">:AwesomeRepo</span>)
+
+<span class="pl-c"># Test if repo exists by name</span>
+conf.has_repo?(<span class="pl-s"><span class="pl-pds">'</span>cool_repo<span class="pl-pds">'</span></span>) <span class="pl-c"># =&gt; false</span>
+conf.has_repo?(<span class="pl-c1">:cool_repo</span>) <span class="pl-c"># =&gt; false</span>
+
+<span class="pl-c"># Can also pass a Gitolite::Config::Repo object</span>
+repo <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">Config</span>::<span class="pl-c1">Repo</span>.<span class="pl-k">new</span>(<span class="pl-s"><span class="pl-pds">'</span>cool_repo<span class="pl-pds">'</span></span>)
+conf.has_repo?(repo) <span class="pl-c"># =&gt; true</span>
+
+<span class="pl-c"># Get a repo object from the config</span>
+repo <span class="pl-k">=</span> conf.get_repo(<span class="pl-s"><span class="pl-pds">'</span>cool_repo<span class="pl-pds">'</span></span>)
+repo <span class="pl-k">=</span> conf.get_repo(<span class="pl-c1">:cool_repo</span>)</pre></div>
+
+<h3>
+<a id="ssh-key-management" class="anchor" href="#ssh-key-management" aria-hidden="true"><span class="octicon octicon-link"></span></a>SSH Key Management</h3>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-c"># Three ways to create keys : manually, from an existing key, or from a string representing a key</span>
+key <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">SSHKey</span>.<span class="pl-k">new</span>(<span class="pl-s"><span class="pl-pds">"</span>ssh-rsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>big-public-key-blob<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>)
+key2 <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">SSHKey</span>.from_file(<span class="pl-s"><span class="pl-pds">"</span>/path/to/ssh/key.pub<span class="pl-pds">"</span></span>)
+
+key_string <span class="pl-k">=</span> <span class="pl-c1">File</span>.read(<span class="pl-s"><span class="pl-pds">"</span>/path/to/ssh/key.pub<span class="pl-pds">"</span></span>)
+key3 <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">SSHKey</span>.from_string(key_string, <span class="pl-s"><span class="pl-pds">"</span>owner<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># Create key with a name #</span>
+key <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">SSHKey</span>.<span class="pl-k">new</span>(<span class="pl-s"><span class="pl-pds">"</span>ssh-rsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>big-public-key-blob<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>keyname<span class="pl-pds">"</span></span>)
+key2 <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">SSHKey</span>.from_file(<span class="pl-s"><span class="pl-pds">"</span>/path/to/ssh/key.pub<span class="pl-pds">"</span></span>)
+
+key_string <span class="pl-k">=</span> <span class="pl-c1">File</span>.read(<span class="pl-s"><span class="pl-pds">"</span>/path/to/ssh/key.pub<span class="pl-pds">"</span></span>)
+key3 <span class="pl-k">=</span> <span class="pl-c1">Gitolite</span>::<span class="pl-c1">SSHKey</span>.from_string(key_string, <span class="pl-s"><span class="pl-pds">"</span>owner<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>keyname<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># Add the keys</span>
+ga_repo.add_key(key)
+ga_repo.add_key(key2)
+ga_repo.add_key(key3)
+
+<span class="pl-c"># Remove key2</span>
+ga_repo.rm_key(key2)</pre></div>
+
+<h3>
+<a id="save-changes" class="anchor" href="#save-changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save changes</h3>
+
+<div class="highlight highlight-ruby"><pre>ga_repo.save(commit_message, <span class="pl-c1">:author</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>John Doe &lt;john.doe@example.com&gt;<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>When this method is called, all changes get written to the file system and commited in git. For the time being, gitolite assumes full control of the gitolite-admin repository.
+This means that any keys in the keydir that are not being tracked will be removed and any human changes to gitolite.conf will be erased.
+The commit message is optional. A generic message is set if missing. Optionally you can pass the author as above.</p>
+
+<h3>
+<a id="apply-changes" class="anchor" href="#apply-changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apply changes</h3>
+
+<div class="highlight highlight-ruby"><pre>ga_repo.apply</pre></div>
+
+<p>This method will push all changes to <tt>origin master</tt>.</p>
+
+<h3>
+<a id="save-and-apply" class="anchor" href="#save-and-apply" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save and apply</h3>
+
+<div class="highlight highlight-ruby"><pre>ga_repo.save_and_apply(commit_message)</pre></div>
+
+<p>This method will add files, commit and push all changes to <tt>origin master</tt> in the same transaction.
+The commit message is optional. A generic message is set if missing.</p>
+
+<h3>
+<a id="updating-remote-changes" class="anchor" href="#updating-remote-changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Updating remote changes</h3>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-c"># In order to avoid conflicts, this will perform a reset! by default</span>
+<span class="pl-c"># pass :reset =&gt; false to disable the reset (Git conflicts will have to be manually fixed)</span>
+ga_repo.update
+ga_repo.update(<span class="pl-c1">:reset</span> =&gt; <span class="pl-c1">false</span>)
+
+<span class="pl-c"># Update while performing a rebase</span>
+ga_repo.update(<span class="pl-c1">:rebase</span> =&gt; <span class="pl-c1">true</span>)</pre></div>
+
+<h3>
+<a id="reloading-from-the-file-system" class="anchor" href="#reloading-from-the-file-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reloading from the file system</h3>
+
+<div class="highlight highlight-ruby"><pre>ga_repo.reload!</pre></div>
+
+<h3>
+<a id="resetting-to-head-destroying-all-local-changes-including-untracked-files" class="anchor" href="#resetting-to-head-destroying-all-local-changes-including-untracked-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resetting to HEAD, destroying all local changes (including untracked files)</h3>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-c"># This will also perform a reload!</span>
+ga_repo.reset!</pre></div>
+
+<h3>
+<a id="bootstrapping" class="anchor" href="#bootstrapping" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bootstrapping</h3>
+
+<div class="highlight highlight-ruby"><pre>ga_repo <span class="pl-k">=</span> <span class="pl-c1">GitoliteAdmin</span>.bootstrap(<span class="pl-s"><span class="pl-pds">"</span>/path/to/new/gitolite/repo<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>This will create the folders <tt>conf</tt> and <tt>keydir</tt> in the supplied path. A config file will also be created in the conf directory.
+The default configuration supplies RW+ permissions to a user named git for a repo named <tt>gitolite-admin</tt>. You can specify an options hash to change some values :</p>
+
+<div class="highlight highlight-ruby"><pre>ga_repo <span class="pl-k">=</span> <span class="pl-c1">GitoliteAdmin</span>.bootstrap(<span class="pl-s"><span class="pl-pds">"</span>/path/to/new/gitolite/repo<span class="pl-pds">"</span></span>, {<span class="pl-c1">:user</span> =&gt; <span class="pl-s"><span class="pl-pds">"</span>admin<span class="pl-pds">"</span></span>, <span class="pl-c1">:perm</span> =&gt; <span class="pl-s"><span class="pl-pds">"</span>RW<span class="pl-pds">"</span></span>})</pre></div>
+
+<p>You can also pass a message to be used for the initial bootstrap commit :</p>
+
+<div class="highlight highlight-ruby"><pre>ga_repo <span class="pl-k">=</span> <span class="pl-c1">GitoliteAdmin</span>.bootstrap(<span class="pl-s"><span class="pl-pds">"</span>/path/to/new/gitolite/repo<span class="pl-pds">"</span></span>, {<span class="pl-c1">:message</span> =&gt; <span class="pl-s"><span class="pl-pds">"</span>Bootstrapped new repo<span class="pl-pds">"</span></span>})</pre></div>
+
+<p>Please note that while bootstrapping is supported, I highly recommend that the initial gitolite-admin repo be created by gitolite itself.</p>
+
+<h2>
+<a id="caveats" class="anchor" href="#caveats" aria-hidden="true"><span class="octicon octicon-link"></span></a>Caveats</h2>
+
+<h3>
+<a id="windows-compatibility" class="anchor" href="#windows-compatibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows compatibility</h3>
+
+<p>The grit gem (which is used for under-the-hood git operations) does not currently support Windows.  Until it does, gitolite will be unable to support Windows.</p>
+
+<h3>
+<a id="group-ordering" class="anchor" href="#group-ordering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Group Ordering</h3>
+
+<p>When the gitolite backend parses the config file, it does so in one pass. Because of this, groups that are modified after being used do not see those changes reflected in previous uses.</p>
+
+<p>For example:</p>
+
+<div class="highlight highlight-sh"><pre>@groupa = bob joe sue
+@groupb = jim @groupa
+@groupa = sam</pre></div>
+
+<p>Group <code>b</code> will contain the users <tt>jim, bob, joe, and sue</tt></p>
 
 <h2>
 <a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
@@ -83,7 +258,7 @@
 </ul>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/jbox-web/gitolite">Gitolite</a> is maintained by <a href="https://github.com/jbox-web">jbox-web</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/jbox-web/gitolite">jbox-gitolite</a> is maintained by <a href="https://github.com/jbox-web">jbox-web</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
