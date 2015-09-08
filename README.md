@@ -35,7 +35,11 @@ The new one is based on https://github.com/libgit2/rugged and provide the same f
 
 ## Installation ##
 
-    gem install jbox-gitolite
+```ruby
+gem 'jbox-gitolite', '~> 1.2.6'
+```
+
+then `bundle install`.
 
 Read the documentation and more in the [Wiki](https://github.com/jbox-web/gitolite/wiki).
 
