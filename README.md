@@ -1,12 +1,13 @@
 ## ![logo](https://raw.github.com/jbox-web/gitolite/gh-pages/images/git_logo.png) gitolite
 
-[![Gem Version](https://badge.fury.io/rb/jbox-gitolite.svg)](http://badge.fury.io/rb/jbox-gitolite)
+[![GitHub license](https://img.shields.io/github/license/jbox-web/jbox-gitolite.svg)](https://github.com/jbox-web/jbox-gitolite/blob/devel/LICENSE)
+[![Gem](https://img.shields.io/gem/v/jbox-gitolite.svg)](https://rubygems.org/gems/jbox-gitolite)
+[![Gem](https://img.shields.io/gem/dv/jbox-gitolite/1.2.6.svg)](https://rubygems.org/gems/jbox-gitolite/versions/1.2.6)
 [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
 [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
 [![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
 [![Coverage Status](https://coveralls.io/repos/jbox-web/gitolite/badge.png?branch=devel)](https://coveralls.io/r/jbox-web/gitolite?branch=devel)
 [![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FBT7E7DAVVEEU)
 
 ### A gem which makes configuring your own Git hosting easy ;)
 
@@ -38,14 +39,6 @@ The new one is based on https://github.com/libgit2/rugged and provide the same f
 
 Read the documentation and more in the [Wiki](https://github.com/jbox-web/gitolite/wiki).
 
-## Copyrights & License
-
-gitolite is completely free and open source and released under the [MIT License](https://github.com/jbox-web/gitolite/blob/devel/LICENSE).
-
-Copyright (c) 2013-2014 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com) [![endorse](https://api.coderwall.com/n-rodriguez/endorsecount.png)](https://coderwall.com/n-rodriguez)
-
-Copyright (c) 2011-2013 Stafford Brunk (stafford.brunk@gmail.com)
-
 ## Contribute
 
 You can contribute to this plugin in many ways such as :
@@ -53,7 +46,3 @@ You can contribute to this plugin in many ways such as :
 * Contributing code (features or bugfixes)
 * Reporting a bug
 * Submitting translations
-
-You can also donate :)
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FBT7E7DAVVEEU)
