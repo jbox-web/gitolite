@@ -213,6 +213,26 @@ ga_repo = GitoliteAdmin.bootstrap("/path/to/new/gitolite/repo", {:message => "Bo
 
 Please note that while bootstrapping is supported, I highly recommend that the initial gitolite-admin repo be created by gitolite itself.
 
+## Caveats ##
+
+### Windows compatibility ###
+
+The grit gem (which is used for under-the-hood git operations) does not currently support Windows.  Until it does, gitolite will be unable to support Windows.
+
+### Group Ordering ###
+
+When the gitolite backend parses the config file, it does so in one pass. Because of this, groups that are modified after being used do not see those changes reflected in previous uses.
+
+For example:
+
+```sh
+@groupa = bob joe sue
+@groupb = jim @groupa
+@groupa = sam
+```
+
+Group ```b``` will contain the users <tt>jim, bob, joe, and sue</tt>
+
 ## Contribute
 
 You can contribute to this plugin in many ways such as :
