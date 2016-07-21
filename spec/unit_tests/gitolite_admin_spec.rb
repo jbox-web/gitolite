@@ -43,7 +43,7 @@ describe Gitolite::GitoliteAdmin do
       c.filename = 'gitolite.conf'
 
       gl_admin.config = c
-      gl_admin.save
+      gl_admin.save('new commit', author: 'Test <test@example.com>')
 
       new_file = File.join(test_dir, 'conf', c.filename)
       expect(File.file?(new_file)).to be true
