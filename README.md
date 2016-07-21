@@ -5,9 +5,8 @@
 [![Gem](https://img.shields.io/gem/dv/jbox-gitolite/1.2.6.svg)](https://rubygems.org/gems/jbox-gitolite/versions/1.2.6)
 [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
 [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
-[![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
-[![Coverage Status](https://coveralls.io/repos/jbox-web/gitolite/badge.png?branch=devel)](https://coveralls.io/r/jbox-web/gitolite?branch=devel)
 [![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
+[![Dependency Status](https://gemnasium.com/jbox-web/gitolite.svg)](https://gemnasium.com/jbox-web/gitolite)
 
 ### A Ruby interface to manage the Gitolite Git backend system, easy ;)
 
