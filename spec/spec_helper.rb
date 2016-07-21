@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'simplecov'
 require 'forgery'
-
+require 'rspec'
 require 'codeclimate-test-reporter'
+require 'support/helper'
 
 ## Configure SimpleCov
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
@@ -10,15 +11,20 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   CodeClimate::TestReporter::Formatter
 ])
 
-SimpleCov.start
+## Start Simplecov
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
+## Configure RSpec
+RSpec.configure do |config|
+  include Helper
+
+  config.color = true
+  config.fail_fast = false
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
 
 require 'gitolite'
-
-def config_files_dir
-  File.join(File.dirname(__FILE__), 'fixtures', 'configs')
-end
-
-
-def ssh_key_files_dir
-  File.join(File.dirname(__FILE__), 'fixtures', 'keys')
-end
