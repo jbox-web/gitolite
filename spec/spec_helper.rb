@@ -1,24 +1,18 @@
 require 'rubygems'
+require 'simplecov'
 require 'forgery'
 
-require 'simplecov'
-require 'simplecov-rcov'
-require 'coveralls'
 require 'codeclimate-test-reporter'
 
 ## Configure SimpleCov
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::RcovFormatter,
-  Coveralls::SimpleCov::Formatter,
   CodeClimate::TestReporter::Formatter
-]
+])
 
 SimpleCov.start
 
-require_relative '../lib/gitolite'
-include Gitolite
-
+require 'gitolite'
 
 def config_files_dir
   File.join(File.dirname(__FILE__), 'fixtures', 'configs')

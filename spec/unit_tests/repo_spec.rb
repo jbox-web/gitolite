@@ -52,7 +52,7 @@ describe Gitolite::Config::Repo do
     end
 
     it 'should not allow adding an invalid permission via an InvalidPermissionError' do
-      expect {@repo.add_permission("BadPerm")}.to raise_error
+      expect {@repo.add_permission("BadPerm")}.to raise_error(Gitolite::Config::InvalidPermissionError)
     end
   end
 

@@ -10,26 +10,26 @@ describe Gitolite::GitoliteAdmin do
     it 'should bootstrap a gitolite-admin repository' do
       test_dir = File.join(output_dir, 'gitolite-admin-test1')
       opts = { :overwrite => false }
-      gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
+      gl_admin = Gitolite::GitoliteAdmin.bootstrap(test_dir, opts)
 
       expect(gl_admin).to be_a Gitolite::GitoliteAdmin
-      expect(GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be true
+      expect(Gitolite::GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be true
     end
 
     it 'should bootstrap (overwrite) a gitolite-admin repository' do
       test_dir = File.join(output_dir, 'gitolite-admin-test1')
       opts = { :overwrite => true }
-      gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
+      gl_admin = Gitolite::GitoliteAdmin.bootstrap(test_dir, opts)
 
       expect(gl_admin).to be_a Gitolite::GitoliteAdmin
-      expect(GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be true
+      expect(Gitolite::GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be true
     end
   end
 
   describe '#is_gitolite_admin_repo?' do
     it 'should detect a non gitolite-admin repository' do
       test_dir = output_dir
-      expect(GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be false
+      expect(Gitolite::GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be false
     end
   end
 
@@ -37,7 +37,7 @@ describe Gitolite::GitoliteAdmin do
     it 'should commit file to gitolite-admin repository' do
       test_dir = File.join(output_dir, 'gitolite-admin-test2')
       opts = { :overwrite => true }
-      gl_admin = GitoliteAdmin.bootstrap(test_dir, opts)
+      gl_admin = Gitolite::GitoliteAdmin.bootstrap(test_dir, opts)
 
       c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
       c.filename = 'gitolite.conf'

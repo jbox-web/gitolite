@@ -1,13 +1,10 @@
 language: ruby
 rvm:
- - 2.1.0
- - 2.0.0
- - 1.9.3
-gemfile:
- - Gemfile
-env:
-  global:
-    - CODECLIMATE_REPO_TOKEN=962aacb3c0e56baae426a19cc2c7bfefc832bf1f2ac2282bdde16d64262afc89
-before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq libicu-dev
+ - 2.3.1
+ - 2.2.5
+ - 2.1.9
+sudo: false
+addons:
+  apt:
+    packages:
+    - libicu-dev

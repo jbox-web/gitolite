@@ -95,12 +95,12 @@ module Gitolite
         end
       end
 
+    end
 
-      # Gets raised if a permission that isn't in the allowed
-      # list is passed in
-      class InvalidPermissionError < ArgumentError
-      end
 
+    # Gets raised if a permission that isn't in the allowed
+    # list is passed in
+    class InvalidPermissionError < ArgumentError
     end
 
   end

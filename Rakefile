@@ -2,7 +2,6 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 require 'rake'
-require 'ci/reporter/rake/rspec'
 require 'rspec/core/rake_task'
 require 'rdoc/task'
 
@@ -40,19 +39,12 @@ task :version do
 end
 
 
-namespace :gitolite do
-  ENV["CI_REPORTS"] = "./junit"
+desc 'Start unit tests'
+task test: :default
 
-  desc "Configure unit tests"
-  RSpec::Core::RakeTask.new(:config_rspec) do |task|
-    task.rspec_opts = "--color"
+task :default do
+  RSpec::Core::RakeTask.new(:spec) do |config|
+    config.rspec_opts = '--color'
   end
-
-  desc "Start unit tests"
-  task :ci => ['ci:setup:rspec', :config_rspec]
+  Rake::Task['spec'].invoke
 end
-
-task :default => "gitolite:ci"
-task :spec    => "gitolite:ci"
-task :rspec   => "gitolite:ci"
-task :test    => "gitolite:ci"
