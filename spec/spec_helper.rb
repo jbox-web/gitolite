@@ -2,13 +2,11 @@ require 'rubygems'
 require 'simplecov'
 require 'forgery'
 require 'rspec'
-require 'codeclimate-test-reporter'
 require 'support/helper'
 
 ## Configure SimpleCov
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::HTMLFormatter,
-  CodeClimate::TestReporter::Formatter
 ])
 
 ## Start Simplecov

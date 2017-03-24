@@ -13,3 +13,5 @@ addons:
 before_script:
 - git config --global user.email "test@example.com"
 - git config --global user.name "Test"
+after_success:
+  - bundle exec codeclimate-test-reporter
