@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.push(lib) unless $LOAD_PATH.include?(lib)
-require 'gitolite/version'
+require_relative 'lib/gitolite/version'
 
 Gem::Specification.new do |s|
   s.name        = 'jbox-gitolite'
@@ -17,6 +15,8 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'jbox-gitolite'
 
+  s.files = `git ls-files`.split("\n")
+
   s.add_runtime_dependency 'gitlab-grit', '~> 2.7', '>= 2.7.2'
   s.add_runtime_dependency 'gratr19', '~> 0.4', '>= 0.4.4.1'
 
@@ -25,9 +25,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec',     '~> 3.1',  '>= 3.1.0'
   s.add_development_dependency 'forgery',   '~> 0.6',  '>= 0.6.0'
   s.add_development_dependency 'simplecov', '~> 0.9',  '>= 0.9.1'
-
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ['lib']
 end
