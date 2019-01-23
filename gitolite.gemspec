@@ -20,9 +20,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'gitlab-grit', '~> 2.7', '>= 2.7.2'
   s.add_runtime_dependency 'gratr19', '~> 0.4', '>= 0.4.4.1'
 
-  s.add_development_dependency 'rake',      '~> 10.3', '>= 10.3.1'
-  s.add_development_dependency 'rdoc',      '~> 4.1',  '>= 4.1.1'
-  s.add_development_dependency 'rspec',     '~> 3.1',  '>= 3.1.0'
-  s.add_development_dependency 'forgery',   '~> 0.6',  '>= 0.6.0'
-  s.add_development_dependency 'simplecov', '~> 0.9',  '>= 0.9.1'
+  s.add_development_dependency 'forgery'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rdoc'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'simplecov'
 end
