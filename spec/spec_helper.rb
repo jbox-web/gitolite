@@ -4,14 +4,9 @@ require 'forgery'
 require 'rspec'
 require 'support/helper'
 
-## Configure SimpleCov
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::HTMLFormatter,
-])
-
 ## Start Simplecov
 SimpleCov.start do
-  add_filter '/spec/'
+  add_filter 'spec/'
 end
 
 ## Configure RSpec

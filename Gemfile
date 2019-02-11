@@ -1,6 +1,5 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-# Specify your gem's dependencies in gitolite.gemspec
+source 'https://rubygems.org'
+
 gemspec
-
-gem 'codeclimate-test-reporter', group: :test, require: false
