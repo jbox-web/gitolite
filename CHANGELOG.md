@@ -1,3 +1,11 @@
+#### [Release 1.2.7](https://github.com/jbox-web/gitolite/releases/tag/v1.2.7)
+***
+**Date :** October 25, 2019
+
+**Changelog :**
+
+* Bump gitlab-grit to version [2.7.2](https://github.com/gitlabhq/grit/blob/master/History.txt)
+
 #### [Release 1.2.6](https://github.com/jbox-web/gitolite/releases/tag/v1.2.6)
 ***
 **Date :** September 10, 2014
