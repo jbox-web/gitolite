@@ -15,10 +15,13 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'jbox-gitolite'
 
+  s.required_ruby_version = '>= 2.4.4'
+
   s.files = `git ls-files`.split("\n")
 
   s.add_runtime_dependency 'gitlab-grit', '~> 2.7', '>= 2.7.2'
   s.add_runtime_dependency 'gratr19', '~> 0.4', '>= 0.4.4.1'
+  s.add_runtime_dependency 'zeitwerk'
 
   s.add_development_dependency 'forgery'
   s.add_development_dependency 'guard-rspec'
