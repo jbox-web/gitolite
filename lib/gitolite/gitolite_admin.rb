@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Gitolite
   class GitoliteAdmin
 
     attr_accessor :gl_admin
 
-    CONFIG_FILE = "gitolite.conf"
-    CONF_DIR    = "conf"
-    KEY_DIR     = "keydir"
+    CONFIG_FILE = 'gitolite.conf'
+    CONF_DIR    = 'conf'
+    KEY_DIR     = 'keydir'
     DEBUG       = false
     TIMEOUT     = 10
 
@@ -13,7 +15,7 @@ module Gitolite
     RAISE_ERROR = true
 
     # Gitolite gem's default commit message
-    DEFAULT_COMMIT_MSG = "Committed by the gitolite gem"
+    DEFAULT_COMMIT_MSG = 'Committed by the gitolite gem'
 
     class << self
 
@@ -30,8 +32,8 @@ module Gitolite
 
         # If we got here it is a valid git repo,
         # now check directory structure
-        File.exists?(File.join(dir, 'conf')) &&
-          File.exists?(File.join(dir, 'keydir')) &&
+        File.exist?(File.join(dir, 'conf')) &&
+          File.exist?(File.join(dir, 'keydir')) &&
           !Dir.glob(File.join(dir, 'conf', '*.conf')).empty?
       end
 
@@ -53,21 +55,21 @@ module Gitolite
           end
         end
 
-        FileUtils.mkdir_p([File.join(path, "conf"), File.join(path, "keydir")])
+        FileUtils.mkdir_p([File.join(path, 'conf'), File.join(path, 'keydir')])
 
-        options[:perm]  ||= "RW+"
-        options[:refex] ||= ""
-        options[:user]  ||= "git"
+        options[:perm]  ||= 'RW+'
+        options[:refex] ||= ''
+        options[:user]  ||= 'git'
 
         c = Config.init
-        r = Config::Repo.new(options[:repo] || "gitolite-admin")
+        r = Config::Repo.new(options[:repo] || 'gitolite-admin')
         r.add_permission(options[:perm], options[:refex], options[:user])
         c.add_repo(r)
-        config = c.to_file(File.join(path, "conf"))
+        config = c.to_file(File.join(path, 'conf'))
 
         gl_admin = Grit::Repo.init(path)
         gl_admin.git.native(:add, {}, config)
-        gl_admin.git.native(:commit, {}, '-a', '-m', options[:message] || "Config bootstrapped by the gitolite gem")
+        gl_admin.git.native(:commit, {}, '-a', '-m', options[:message] || 'Config bootstrapped by the gitolite gem')
 
         self.new(path)
       end
@@ -86,7 +88,7 @@ module Gitolite
       git_env      = options[:env] || {}
       git_raise    = options[:raise] || RAISE_ERROR
 
-      @git_options = {:env => git_env, :raise => git_raise}
+      @git_options = { env: git_env, raise: git_raise }
 
       @config_file_path = File.join(@path, @conf_dir, @config_file)
       @conf_dir_path    = File.join(@path, @conf_dir)
@@ -121,13 +123,13 @@ module Gitolite
 
 
     def add_key(key)
-      raise "Key must be of type Gitolite::SSHKey!" unless key.instance_of? Gitolite::SSHKey
+      raise 'Key must be of type Gitolite::SSHKey!' unless key.instance_of? Gitolite::SSHKey
       ssh_keys[key.owner] << key
     end
 
 
     def rm_key(key)
-      raise "Key must be of type Gitolite::SSHKey!" unless key.instance_of? Gitolite::SSHKey
+      raise 'Key must be of type Gitolite::SSHKey!' unless key.instance_of? Gitolite::SSHKey
       ssh_keys[key.owner].delete key
     end
 
@@ -136,8 +138,8 @@ module Gitolite
     # git repo to HEAD and reloading the entire repository
     # Note that this will also delete all untracked files
     def reset!
-      @gl_admin.git.native(:reset, git_options.merge(:hard => true), 'HEAD')
-      @gl_admin.git.native(:clean, git_options.merge(:d => true, :q => true, :f => true))
+      @gl_admin.git.native(:reset, git_options.merge(hard: true), 'HEAD')
+      @gl_admin.git.native(:clean, git_options.merge(d: true, q: true, f: true))
       reload!
     end
 
@@ -162,8 +164,8 @@ module Gitolite
 
       # Process ssh keys (if loaded, i.e. may be modified)
       if @ssh_keys
-        files = list_keys.map{|f| File.basename f}
-        keys  = @ssh_keys.values.map{|f| f.map {|t| t.filename}}.flatten
+        files = list_keys.map { |f| File.basename f }
+        keys  = @ssh_keys.values.map { |f| f.map(&:filename) }.flatten
 
         to_remove = (files - keys).map { |f| File.join(@key_dir, f) }
         to_remove.each do |key|
@@ -186,7 +188,7 @@ module Gitolite
       args << '-m'
       args << commit_message
 
-      if options.has_key?(:author) && !options[:author].empty?
+      if options.key?(:author) && !options[:author].empty?
         args << "--author='#{options[:author]}'"
       end
 
@@ -196,7 +198,7 @@ module Gitolite
 
     # Push back to origin
     def apply
-      @gl_admin.git.native(:push, git_options, "origin", "master")
+      @gl_admin.git.native(:push, git_options, 'origin', 'master')
     end
 
 
@@ -209,11 +211,11 @@ module Gitolite
 
     # Updates the repo with changes from remote master
     def update(options = {})
-      options = {:reset => true, :rebase => false}.merge(options)
+      options = { reset: true, rebase: false }.merge(options)
 
       reset! if options[:reset]
 
-      @gl_admin.git.native(:pull, git_options.merge(:rebase => options[:rebase]), "origin", "master")
+      @gl_admin.git.native(:pull, git_options.merge(rebase: options[:rebase]), 'origin', 'master')
 
       reload!
     end
@@ -235,7 +237,7 @@ module Gitolite
     # Loads all .pub files in the gitolite-admin
     # keydir directory
     def load_keys
-      keys = Hash.new {|k,v| k[v] = DirtyProxy.new([])}
+      keys = Hash.new { |k,v| k[v] = DirtyProxy.new([]) }
 
       list_keys.each do |key|
         new_key = SSHKey.from_file(key)
@@ -245,7 +247,7 @@ module Gitolite
       end
 
       # Mark key sets as unmodified (for dirty checking)
-      keys.values.each{|set| set.clean_up!}
+      keys.values.each(&:clean_up!)
 
       keys
     end

@@ -1,0 +1,29 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - bin/*
+    - spec/**/*
+
+Documentation:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+Layout/EmptyLines:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 110
+
+# Metrics/MethodLength:
+#   Max: 15
+
+# Naming/PredicateName:
+#   Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gitolite
   class Config
 
@@ -30,7 +32,7 @@ module Gitolite
 
 
       def add_users(*users)
-        fixed_users = users.flatten.map{ |u| u.to_s }
+        fixed_users = users.flatten.map(&:to_s)
         @users.concat(fixed_users).sort!.uniq!
       end
 

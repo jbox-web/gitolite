@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gitolite
 
   # Models an SSH key within gitolite
@@ -16,12 +18,12 @@ module Gitolite
     class << self
 
       def from_file(key)
-        raise "#{key} does not exist!" unless File.exists?(key)
+        raise "#{key} does not exist!" unless File.exist?(key)
 
         # Get our owner and location
         File.basename(key) =~ /^([\+\w\.-]+(?:@(?:[\w-]+\.)+\D{2,4})?)(?:@([\w-]+))?.pub$/i
         owner    = $1
-        location = $2 || ""
+        location = $2 || ''
 
         # Use string key constructor
         self.from_string(File.read(key), owner, location)
@@ -29,9 +31,9 @@ module Gitolite
 
 
       # Construct a SSHKey from a string
-      def from_string(key_string, owner, location = "")
+      def from_string(key_string, owner, location = '')
         if owner.nil?
-          raise ArgumentError, "owner was nil, you must specify an owner"
+          raise ArgumentError, 'owner was nil, you must specify an owner'
         end
 
         # Get parts of the key
@@ -53,7 +55,7 @@ module Gitolite
     end
 
 
-    def initialize(type, blob, email, owner = nil, location = "")
+    def initialize(type, blob, email, owner = nil, location = '')
       @type = type
       @blob = blob
       @email = email
@@ -70,7 +72,7 @@ module Gitolite
 
     def to_file(path)
       key_file = File.join(path, self.filename)
-      File.open(key_file, "w") do |f|
+      File.open(key_file, 'w') do |f|
         f.sync = true
         f.write(self.to_s)
       end
@@ -81,7 +83,7 @@ module Gitolite
     def filename
       file = @owner
       file += "@#{@location}" unless @location.empty?
-      file += ".pub"
+      file += '.pub'
     end
 
 
