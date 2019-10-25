@@ -1,14 +1,10 @@
 require 'spec_helper'
 
-describe Gitolite::GitoliteAdmin do
-
-  conf_dir   = config_files_dir
-  output_dir = '/tmp'
-  # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
+RSpec.describe Gitolite::GitoliteAdmin do
 
   describe '#bootstrap' do
     it 'should bootstrap a gitolite-admin repository' do
-      test_dir = File.join(output_dir, 'gitolite-admin-test1')
+      test_dir = File.join(OUTPUT_DIR, 'gitolite-admin-test1')
       opts = { :overwrite => false }
       gl_admin = Gitolite::GitoliteAdmin.bootstrap(test_dir, opts)
 
@@ -17,7 +13,7 @@ describe Gitolite::GitoliteAdmin do
     end
 
     it 'should bootstrap (overwrite) a gitolite-admin repository' do
-      test_dir = File.join(output_dir, 'gitolite-admin-test1')
+      test_dir = File.join(OUTPUT_DIR, 'gitolite-admin-test1')
       opts = { :overwrite => true }
       gl_admin = Gitolite::GitoliteAdmin.bootstrap(test_dir, opts)
 
@@ -28,18 +24,18 @@ describe Gitolite::GitoliteAdmin do
 
   describe '#is_gitolite_admin_repo?' do
     it 'should detect a non gitolite-admin repository' do
-      test_dir = output_dir
+      test_dir = OUTPUT_DIR
       expect(Gitolite::GitoliteAdmin.is_gitolite_admin_repo?(test_dir)).to be false
     end
   end
 
   describe '#save' do
     it 'should commit file to gitolite-admin repository' do
-      test_dir = File.join(output_dir, 'gitolite-admin-test2')
+      test_dir = File.join(OUTPUT_DIR, 'gitolite-admin-test2')
       opts = { :overwrite => true }
       gl_admin = Gitolite::GitoliteAdmin.bootstrap(test_dir, opts)
 
-      c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      c = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
       c.filename = 'gitolite.conf'
 
       gl_admin.config = c

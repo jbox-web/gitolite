@@ -1,27 +1,23 @@
 require 'spec_helper'
 
-describe Gitolite::Config do
-
-  conf_dir   = config_files_dir
-  output_dir = '/tmp'
-  # output_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
+RSpec.describe Gitolite::Config do
 
   describe "#new" do
     it 'should read a simple configuration' do
-      c = Gitolite::Config.new(File.join(conf_dir, 'simple.conf'))
+      c = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'simple.conf'))
       expect(c.repos.length).to eq 2
       expect(c.groups.length).to eq 0
     end
 
     it 'should read a complex configuration' do
-      c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      c = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
       expect(c.groups.length).to eq 5
       expect(c.repos.length).to eq 13
     end
 
     describe 'gitweb operations' do
       before :all do
-        @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+        @config = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
       end
 
       it 'should correctly read gitweb options for an existing repo' do
@@ -71,7 +67,7 @@ describe Gitolite::Config do
 
     describe "git config settings" do
       before :all do
-        @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+        @config = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
       end
 
       it 'should correctly read in git config settings' do
@@ -82,7 +78,7 @@ describe Gitolite::Config do
 
     describe "gitolite options" do
       before :all do
-        @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+        @config = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
       end
 
       it 'should correctly read in gitolite options' do
@@ -129,7 +125,7 @@ describe Gitolite::Config do
 
   describe "repo management" do
     before :each do
-      @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      @config = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
     end
 
     describe "#get_repo" do
@@ -255,7 +251,7 @@ describe Gitolite::Config do
 
   describe "group management" do
     before :each do
-      @config = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
+      @config = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
     end
 
     describe "#has_group?" do
@@ -328,23 +324,23 @@ describe Gitolite::Config do
   describe "#to_file" do
     it 'should create a file at the given path with the config\'s file name' do
       c = Gitolite::Config.init
-      file = c.to_file(output_dir)
-      expect(File.file?(File.join(output_dir, c.filename))).to be true
+      file = c.to_file(OUTPUT_DIR)
+      expect(File.file?(File.join(OUTPUT_DIR, c.filename))).to be true
       File.unlink(file)
     end
 
     it 'should create a file at the given path with the config file passed' do
-      c = Gitolite::Config.new(File.join(conf_dir, 'complicated.conf'))
-      file = c.to_file(output_dir)
-      expect(File.file?(File.join(output_dir, c.filename))).to be true
+      c = Gitolite::Config.new(File.join(CONFIG_FILES_DIR, 'complicated.conf'))
+      file = c.to_file(OUTPUT_DIR)
+      expect(File.file?(File.join(OUTPUT_DIR, c.filename))).to be true
     end
 
     it 'should create a file at the given path when a different filename is specified' do
       filename = "test.conf"
       c = Gitolite::Config.init
       c.filename = filename
-      file = c.to_file(output_dir)
-      expect(File.file?(File.join(output_dir, filename))).to be true
+      file = c.to_file(OUTPUT_DIR)
+      expect(File.file?(File.join(OUTPUT_DIR, filename))).to be true
       File.unlink(file)
     end
 
@@ -380,7 +376,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Write the config to a file
-      file = c.to_file(output_dir)
+      file = c.to_file(OUTPUT_DIR)
 
       # Read the conf and make sure our order is correct
       f = File.read(file)
@@ -418,7 +414,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Attempt to write the config file
-      expect(lambda{ c.to_file(output_dir)}).to raise_error(Gitolite::Config::GroupDependencyError)
+      expect(lambda{ c.to_file(OUTPUT_DIR)}).to raise_error(Gitolite::Config::GroupDependencyError)
     end
 
     it 'should resolve group dependencies even when there are disconnected portions of the graph' do
@@ -443,7 +439,7 @@ describe Gitolite::Config do
       c.add_group(g)
 
       # Write the config to a file
-      file = c.to_file(output_dir)
+      file = c.to_file(OUTPUT_DIR)
 
       # Read the conf and make sure our order is correct
       f = File.read(file)
