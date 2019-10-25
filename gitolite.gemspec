@@ -4,7 +4,7 @@ require_relative 'lib/gitolite/version'
 
 Gem::Specification.new do |s|
   s.name        = 'jbox-gitolite'
-  s.version     = Gitolite::VERSION
+  s.version     = Gitolite::VERSION::STRING
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Nicolas Rodriguez']
   s.email       = ['nrodriguez@jbox-web.com']

@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
 module Gitolite
-  VERSION = '1.2.7'
+
+  def self.gem_version
+    Gem::Version.new VERSION::STRING
+  end
+
+  module VERSION
+    MAJOR = 1
+    MINOR = 2
+    TINY  = 7
+    PRE   = nil
+
+    STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
+  end
 end
