@@ -1,8 +1,9 @@
 ## ![logo](https://raw.github.com/jbox-web/gitolite/gh-pages/images/git_logo.png) gitolite
 
 [![GitHub license](https://img.shields.io/github/license/jbox-web/gitolite.svg)](https://github.com/jbox-web/gitolite/blob/devel/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/jbox-web/gitolite.svg)](https://github.com/jbox-web/gitolite/releases/latest)
 [![Gem](https://img.shields.io/gem/v/jbox-gitolite.svg)](https://rubygems.org/gems/jbox-gitolite)
-[![Gem](https://img.shields.io/gem/dv/jbox-gitolite/1.2.6.svg)](https://rubygems.org/gems/jbox-gitolite/versions/1.2.6)
+[![Gem](https://img.shields.io/gem/dtv/jbox-gitolite.svg)](https://rubygems.org/gems/jbox-gitolite)
 [![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
 [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
 [![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
