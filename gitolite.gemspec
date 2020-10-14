@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.files = `git ls-files`.split("\n")
 
-  s.add_runtime_dependency 'gitlab-grit', '~> 2.7', '>= 2.7.2'
+  s.add_runtime_dependency 'gitlab-grit', '~> 2.8'
   s.add_runtime_dependency 'gratr19', '~> 0.4', '>= 0.4.4.1'
   s.add_runtime_dependency 'zeitwerk'
 
