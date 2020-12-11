@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/release/jbox-web/gitolite.svg)](https://github.com/jbox-web/gitolite/releases/latest)
 [![Gem](https://img.shields.io/gem/v/jbox-gitolite.svg)](https://rubygems.org/gems/jbox-gitolite)
 [![Gem](https://img.shields.io/gem/dtv/jbox-gitolite.svg)](https://rubygems.org/gems/jbox-gitolite)
-[![Build Status](https://travis-ci.org/jbox-web/gitolite.svg?branch=devel)](https://travis-ci.org/jbox-web/gitolite)
+[![CI](https://github.com/jbox-web/gitolite/workflows/CI/badge.svg)](https://github.com/jbox-web/gitolite/actions)
 [![Code Climate](https://codeclimate.com/github/jbox-web/gitolite.png)](https://codeclimate.com/github/jbox-web/gitolite)
 [![Test Coverage](https://codeclimate.com/github/jbox-web/gitolite/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/gitolite)
 
